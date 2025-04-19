@@ -1,3 +1,4 @@
+```
 Mathematics
 ├─ Algebra
 │  ├─ Algebraic Structures
@@ -71,3 +72,4 @@ TODO:
    ├─ Information / Coding / Cryptography (MSC: 94A‑XX, 94B‑XX, 11T‑XX)
    ├─ Mathematical Biology & Medicine (MSC: 92‑XX)
    └─ Financial & Actuarial Mathematics (MSC: 91G‑XX)
+```
