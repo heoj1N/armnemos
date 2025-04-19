@@ -1,0 +1,102 @@
+\section{Group Theory and Symmetry}
+
+\subsection{Basic Definitions}
+
+\paragraph{Groups.}
+A \emph{group} \((G,\cdot,1)\) is a set \(G\) with an associative binary operation, an identity element \(1\in G\), and inverses:  
+\(\forall g\in G\;\exists g^{-1}\in G\) with \(gg^{-1}=g^{-1}g=1\).  
+If \(gh=hg\) for all \(g,h\in G\) the group is \emph{abelian}.
+
+\paragraph{Homomorphisms and Isomorphisms.}
+A map \(\varphi:G\!\to H\) is a \emph{group homomorphism} if
+\(\varphi(gh)=\varphi(g)\varphi(h)\).  
+The kernel \(\ker\varphi\) is a normal subgroup;  
+\(\varphi\) is an \emph{isomorphism} when bijective.
+
+\paragraph{Subgroups and Quotients.}
+\(H\le G\) if \(H\subseteq G\) is a group under the induced operation.  
+\(N\!\lhd\!G\) (normal) if \(gNg^{-1}=N\) for all \(g\in G\); then the quotient \(G/N\) is a group.
+
+\subsection{Finite Groups}
+
+\begin{itemize}
+    \item \textbf{Lagrange’s Theorem.}  
+          If \(H\le G\) and \(|G|<\infty\), then \(|H|\mid|G|\).
+    \item \textbf{Sylow Theorems.}  
+          Let \(|G|=p^{n}m\) with \(p\nmid m\).  
+          Then \(G\) has subgroups of order \(p^{n}\) (Sylow \(p\)-subgroups);
+          all Sylow \(p\)-subgroups are conjugate, and their number is \(\equiv 1\pmod{p}\) and divides \(m\).
+    \item \textbf{Classification up to order \(15\).}
+          Every group of prime order is cyclic;  
+          groups of order \(p^{2}\) are abelian;  
+          the smallest non‑abelian examples are \(S_{3}\) (\(|G|=6\)) and \(D_{8}\) (\(|G|=8\)).
+\end{itemize}
+
+\subsection{Infinite and Topological Groups}
+
+\begin{itemize}
+    \item \textbf{Free groups} \(F_{n}\) on \(n\) generators have no relations.
+    \item \textbf{Lie groups} are smooth manifolds with group operations smooth;  
+          their tangent space at the identity is a Lie algebra.
+    \item \textbf{Fundamental group} \(\pi_{1}(X,x_{0})\) encodes 1‑dimensional homotopy of a space~\(X\).
+\end{itemize}
+
+\subsection{Group Actions and Symmetry}
+
+A \emph{(left) action} of \(G\) on a set \(X\) is a map \(G\times X\to X,\ (g,x)\mapsto gx\) with  
+\(1x=x\) and \(g(hx)=(gh)x\).  
+
+\begin{itemize}
+    \item \textbf{Orbit–Stabilizer.}  
+          \(|G| = |G\!\cdot\!x|\;|G_{x}|\) for finite \(G\).
+    \item \textbf{Burnside’s Lemma.}  
+          The number of orbits equals \(\frac{1}{|G|}\sum_{g\in G}\!|X^{g}|\).
+    \item \textbf{Cayley’s Theorem.}  
+          Every group \(G\) acts faithfully on itself by left multiplication, embedding \(G\) into \(S_{|G|}\).
+    \item \textbf{Symmetry Groups.}  
+          Rigid motions of a geometric object form a subgroup of the Euclidean or projective isometry group (e.g.\ dihedral \(D_{n}\), octahedral~\(O\)).
+\end{itemize}
+
+\subsection{Representation Theory}
+
+Let \(k\) be a field and \(G\) finite with \(\operatorname{char}k\nmid|G|\).
+
+\begin{itemize}
+    \item A \emph{representation} is a homomorphism \(\rho:G\to \mathrm{GL}(V)\);  
+          \(V\) is a \(kG\)-module.
+    \item \textbf{Maschke’s Theorem.}  
+          Every representation decomposes into irreducibles.
+    \item \textbf{Characters.}  
+          The character \(\chi_{\rho}(g)=\mathrm{tr}\,\rho(g)\) is constant on conjugacy classes;  
+          irreducible characters form an orthonormal basis of the class functions under  
+          \(\langle \chi,\psi\rangle=\frac{1}{|G|}\sum_{g\in G}\chi(g)\overline{\psi(g)}\).
+    \item \textbf{Peter–Weyl (compact \(G\)).}  
+          Matrix coefficients of irreducible unitary representations are dense in \(L^{2}(G)\).
+\end{itemize}
+
+\subsection{Geometric and Combinatorial Groups}
+
+\begin{itemize}
+    \item \textbf{Cayley Graph.}  
+          For \(G=\langle S\rangle\), the graph \(\Gamma(G,S)\) encodes group structure;  
+          geometric properties (growth, amenability) reflect algebraic ones.
+    \item \textbf{Word Hyperbolic Groups} (Gromov).  
+          Groups whose Cayley graphs are \(\delta\)-hyperbolic admit 
+          a rich boundary theory and satisfy the Tits alternative.
+    \item \textbf{Mapping Class Groups} \(\mathcal{M}(S)\).  
+          Homeomorphism classes of a surface \(S\) act on Teichmüller space;  
+          have deep connections with low‑dimensional topology.
+\end{itemize}
+
+\subsection{Illustrative Examples}
+
+\begin{enumerate}
+    \item \textbf{Alternating Groups.}  
+          \(A_{5}\) is simple of order \(60\);  
+          its icosahedral symmetry realizes \(A_{5}\subset \mathrm{SO}(3)\).
+    \item \textbf{Crystallographic Groups.}  
+          There are \(17\) wallpaper groups (plane crystallographic groups) up to isomorphism, classified by their symmetry patterns.
+    \item \textbf{Free Group Action.}  
+          The free group \(F_{2}\) acts freely on a regular tree of degree~\(4\);  
+          the quotient is a bouquet of two circles.
+\end{enumerate}

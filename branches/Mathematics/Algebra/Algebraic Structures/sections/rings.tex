@@ -1,0 +1,138 @@
+\section{Ring, Module, and Algebra Theory}
+
+\subsection{Basic Definitions}
+
+\paragraph{Rings.}
+A \emph{ring} \(R=(R,+,\cdot,1)\) is an abelian group under addition together with an associative
+multiplication possessing a unity~\(1\neq 0\).
+Unless specified otherwise, all rings are assumed to be unital and
+multiplicatively commutative with~\(1\).
+
+\paragraph{Ring Homomorphisms.}
+A map \(\varphi:R\!\to\!S\) is a \emph{ring homomorphism} if
+\(\varphi(1)=1\) and for all \(a,b\in R\)
+\[
+\varphi(a+b)=\varphi(a)+\varphi(b),\qquad
+\varphi(ab)=\varphi(a)\,\varphi(b).
+\]
+
+\paragraph{Ideals and Quotients.}
+A subset \(I\subseteq R\) is a (two‑sided) \emph{ideal} if
+\(RI\subseteq I\) and \(IR\subseteq I\).
+The quotient \(R/I\) inherits a natural ring structure;
+the canonical projection \(\pi:R\!\twoheadrightarrow\!R/I\) is surjective with
+\(\ker\pi = I\).
+
+\medskip
+Every surjective ring homomorphism \(\varphi:R\!\twoheadrightarrow\!S\) induces
+\(R/\ker\varphi\;\cong\;S\) (\emph{First Isomorphism Theorem}).
+
+\subsection{Ideals: Prime, Maximal, Radicals}
+
+\begin{itemize}
+    \item \textbf{Prime ideal.} \(P\!\subseteq\!R\) is prime if \(ab\in P\Rightarrow a\in P\ \text{or}\ b\in P\).  
+          Equivalently \(R/P\) is an integral domain.
+    \item \textbf{Maximal ideal.} \(M\!\subseteq\!R\) is maximal if no ideal lies properly between \(M\) and~\(R\); equivalently \(R/M\) is a field.
+    \item \textbf{Jacobson radical.}  
+          \(\operatorname{Jac}(R)=\bigcap_{M\text{ maximal}} M.\)
+    \item \textbf{Nilradical.}
+          \(\operatorname{Nil}(R)=\{\,a\in R\mid a^{n}=0 \text{ for some }n\ge1\}\)
+          equals the intersection of all prime ideals.
+    \item \textbf{Chinese Remainder Theorem.}
+          If \(I_1,\ldots,I_k\lhd R\) are pairwise coprime, then
+          \[
+          R/\bigl(\cap_{i}I_i\bigr)\;\cong\;
+          \prod_{i=1}^{k} R/I_i.
+          \]
+\end{itemize}
+
+\subsection{Modules and Exact Sequences}
+
+\paragraph{Modules.}
+A (left) \emph{\(R\)-module} \(M\) is an abelian group
+with scalar multiplication \(R\times M\!\to\!M\)
+compatible with ring operations.  
+Morphisms are \(R\)-linear maps.
+
+\medskip\noindent
+Submodules, quotients, and direct sums are defined analogously to vector spaces.
+An exact sequence
+\(0\!\to\!A\xrightarrow{f}B\xrightarrow{g}C\!\to\!0\)
+means \(\ker g=\operatorname{im}f\) and \(f\) is injective, \(g\) surjective.
+
+\paragraph{Projective, Injective, Flat.}
+\begin{itemize}
+    \item \(P\) is \emph{projective} if every surjection \(N\twoheadrightarrow M\) and map \(P\to M\)
+          lift to \(P\to N\).
+          Equivalently, \(P\) is a direct summand of a free module.
+    \item \(I\) is \emph{injective} if every injection \(M\hookrightarrow N\)
+          extends any map \(M\to I\) to \(N\to I\).
+    \item \(F\) is \emph{flat} if the functor
+          \(F\otimes_R -\) preserves exactness.
+\end{itemize}
+
+\paragraph{Homological Algebra.}
+Given a projective resolution \(P_\bullet\to M\), the \emph{derived functors}
+\[
+\operatorname{Tor}^{R}_n(M,N),\qquad
+\operatorname{Ext}^{n}_{R}(M,N)
+\]
+measure the failure of tensor and \(\operatorname{Hom}\) to be exact.
+
+\subsection{Commutative Algebra Highlights}
+
+\begin{itemize}
+    \item \textbf{Noetherian rings.}  
+          \(R\) is Noetherian if every ascending chain of ideals stabilises.
+          Equivalent condition: every ideal is finitely generated.
+    \item \textbf{Hilbert Basis Theorem.}  
+          If \(R\) is Noetherian, so is \(R[x]\).
+    \item \textbf{Primary Decomposition.}  
+          In Noetherian rings every ideal can be written
+          \(I = Q_1\cap\cdots\cap Q_r\) with each \(Q_i\) primary.
+    \item \textbf{Localization.}  
+          For \(S\subset R\) multiplicatively closed, \(S^{-1}R\)
+          inverts elements of \(S\) and preserves many structural properties.
+    \item \textbf{Krull Dimension.}  
+          \(\dim R = \sup\{\ell\mid P_0\subsetneq\cdots\subsetneq P_\ell\text{ prime}\}\).
+\end{itemize}
+
+\subsection{Representation Theory of Algebras}
+
+Let \(A\) be a (not‑necessarily‑commutative) finite‑dimensional \(k\)-algebra.
+
+\begin{itemize}
+    \item A left \(A\)-module is a \emph{representation} of \(A\).
+          Simple modules correspond to
+          primitive idempotents in \(A\!/\,\operatorname{Jac}(A)\).
+    \item \(A\) is \emph{semisimple}  
+          \(\Longleftrightarrow\) \(\operatorname{Jac}(A)=0\)
+          \(\Longleftrightarrow\) every \(A\)-module is completely reducible  
+          (Wedderburn–Artin).
+    \item For a finite group \(G\) and field \(k\), the group algebra
+          \(kG\) is semisimple iff \(\operatorname{char}k\nmid |G|\)
+          (Maschke’s Theorem).
+    \item The category \(\mathrm{Rep}_k(A)\) is abelian; 
+          \(\operatorname{Hom}_A\) and \(\operatorname{Ext}^n_A\) control
+          morphisms and extensions of representations.
+\end{itemize}
+
+\subsection{Illustrative Examples}
+
+\begin{enumerate}
+    \item \textbf{Principal Ideal Domains.}
+          In a PID every submodule of a free module is free;  
+          the classification of finitely generated modules yields
+          the structure theorem for finitely generated abelian groups.
+    \item \textbf{Polynomial Rings.}
+          For \(R\) Noetherian, \(R[x_1,\dots,x_n]\) is Noetherian
+          (Hilbert Basis), enabling Gröbner‑basis algorithms.
+    \item \textbf{Quiver Algebras.}
+          Path algebra \(kQ\) for a finite quiver \(Q\) encodes
+          representations combinatorially;  
+          Gabriel’s Theorem classifies quivers of finite representation type.
+    \item \textbf{Artinian Rings.}
+          Every left Artinian ring is Noetherian and
+          decomposes into
+          \(R\cong\prod_i M_{n_i}(D_i)\) with division rings \(D_i\).
+\end{enumerate}
