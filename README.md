@@ -1,10 +1,6 @@
 # KnowledgeTree
 
-Are you ready to taste the forbidden fruits of knowledge?
-
-<div style="text-align: center;">
-<img src='assets/img/tree_of_knowledge.png' height=500>
-</div>
+LaTeX files of study material. Ar=tree, mnemosyne=gr.godess of memory.
 
 ## Shared LaTeX header:
 ```
