@@ -1,0 +1,538 @@
+\section{Matrices}
+Let $A$ be an $m \times n$ matrix and $B$ be an $n \times p$ matrix. Then
+\[
+A =
+\begin{pmatrix}
+a_{11} & a_{12} & \cdots & a_{1n} \\
+a_{21} & a_{22} & \cdots & a_{2n} \\
+\vdots & \vdots & \ddots & \vdots \\
+a_{m1} & a_{m2} & \cdots & a_{mn}
+\end{pmatrix},
+\]
+\[
+B =
+\begin{pmatrix}
+b_{11} & b_{12} & \cdots & b_{1p} \\
+b_{21} & b_{22} & \cdots & b_{2p} \\
+\vdots & \vdots & \ddots & \vdots \\
+b_{n1} & b_{n2} & \cdots & b_{np}
+\end{pmatrix}.
+\]
+
+\subsection{Operations on Matrices}
+\subsubsection{Matrix Addition and Scalar Multiplication}
+\[
+A + C \;=\;
+\begin{pmatrix}
+a_{11} + c_{11} & \cdots & a_{1n} + c_{1n} \\
+\vdots & \ddots & \vdots \\
+a_{m1} + c_{m1} & \cdots & a_{mn} + c_{mn}
+\end{pmatrix},
+\quad
+\alpha A \;=\;
+\begin{pmatrix}
+\alpha a_{11} & \cdots & \alpha a_{1n} \\
+\vdots & \ddots & \vdots \\
+\alpha a_{m1} & \cdots & \alpha a_{mn}
+\end{pmatrix}.
+\]
+\begin{itemize}
+\item $A$ and $C$ must be the same dimension for $A + C$ to be defined.
+\item Commutative: $A + C = C + A$.
+\end{itemize}
+\subsubsection{Matrix Multiplication}
+\[
+A B =
+\begin{pmatrix}
+\sum_{k=1}^n a_{1k} b_{k1} & \sum_{k=1}^n a_{1k} b_{k2} & \cdots & \sum_{k=1}^n a_{1k} b_{kp} \\
+\sum_{k=1}^n a_{2k} b_{k1} & \sum_{k=1}^n a_{2k} b_{k2} & \cdots & \sum_{k=1}^n a_{2k} b_{kp} \\
+\vdots                   & \vdots                   & \ddots & \vdots                   \\
+\sum_{k=1}^n a_{mk} b_{k1} & \sum_{k=1}^n a_{mk} b_{k2} & \cdots & \sum_{k=1}^n a_{mk} b_{kp}
+\end{pmatrix}.
+\]
+\begin{itemize}
+\item $AB$ is defined only if the number of columns of $A$ equals the number of rows of $B$.
+\item \emph{Not commutative in general}: $AB \neq BA$ (unless $A$ and $B$ have special forms or dimensions).
+\item \emph{Associative}: $(AB)C = A(BC)$.
+\end{itemize}
+
+\subsubsection{Matrix--Vector Multiplication}
+Let $A$ be an $m \times n$ matrix and $\mathbf{x}$ an $n \times 1$ column vector:
+\[
+A \mathbf{x} =
+\begin{pmatrix}
+a_{11} & a_{12} & \cdots & a_{1n} \\
+a_{21} & a_{22} & \cdots & a_{2n} \\
+\vdots & \vdots & \ddots & \vdots \\
+a_{m1} & a_{m2} & \cdots & a_{mn}
+\end{pmatrix}
+\begin{pmatrix}
+x_1 \\
+x_2 \\
+\vdots \\
+x_n
+\end{pmatrix}
+=
+\begin{pmatrix}
+a_{11} x_1 + a_{12} x_2 + \cdots + a_{1n} x_n \\
+a_{21} x_1 + a_{22} x_2 + \cdots + a_{2n} x_n \\
+\vdots \\
+a_{m1} x_1 + a_{m2} x_2 + \cdots + a_{mn} x_n
+\end{pmatrix}.
+\]
+\begin{itemize}
+\item The result is an $m \times 1$ vector.
+\item $(A\mathbf{x})^\top = \mathbf{x}^\top A^\top$.
+\end{itemize}
+
+
+\subsection{Properties of Matrices}
+\subsubsection{Trace of a Matrix}
+
+\noindent
+The \emph{trace} of a square matrix \(A \in \mathbb{R}^{n\times n}\), 
+denoted \(\mathrm{tr}(A)\) (or just \(\mathrm{tr} A\) if the parentheses 
+are clear), is the sum of its diagonal elements:
+\[
+\mathrm{tr}(A) = \sum_{i=1}^n a_{ii}.
+\]
+
+The trace has the following properties:
+
+\begin{itemize}
+    \item \textit{Symmetry:} 
+          For \( A \in \mathbb{R}^{n\times n}\), 
+          \(\mathrm{tr}(A) = \mathrm{tr}(A^\top)\).
+    \item \textit{Linearity:} 
+          For \(A, B \in \mathbb{R}^{n \times n}\),
+          \(\mathrm{tr}(A + B) = \mathrm{tr}(A) + \mathrm{tr}(B)\), 
+          and for any scalar \(\alpha\), 
+          \(\mathrm{tr}(\alpha A) = \alpha\,\mathrm{tr}(A)\).
+    \item \textit{Cyclicity} for two factors: 
+          If \(AB\) is square, then 
+          \(\mathrm{tr}(AB) = \mathrm{tr}(BA)\).
+    \item \textit{Cyclicity} for three (or more) factors:
+          If \(ABC\) is square, then 
+          \(\mathrm{tr}(ABC) = \mathrm{tr}(BCA) = \mathrm{tr}(CAB)\), 
+          and similarly for products of any number of matrices.
+\end{itemize}
+
+\noindent
+\textbf{Example proof of} \(\mathrm{tr}(AB) = \mathrm{tr}(BA)\):\\[6pt]
+Suppose \(A \in \mathbb{R}^{m \times n}\) and \(B \in \mathbb{R}^{n \times m}\), 
+so that \(AB \in \mathbb{R}^{m \times m}\) and \(BA \in \mathbb{R}^{n \times n}\) 
+are both square. Then
+\[
+\mathrm{tr}(AB)
+\;=\;
+\sum_{i=1}^m (AB)_{ii}
+\;=\;
+\sum_{i=1}^m \sum_{j=1}^n A_{ij}\,B_{ji}
+\;=\;
+\sum_{j=1}^n \sum_{i=1}^m B_{ji}\,A_{ij}
+\;=\;
+\sum_{j=1}^n (BA)_{jj}
+\;=\;
+\mathrm{tr}(BA).
+\]
+Thus we see \(\mathrm{tr}(AB) = \mathrm{tr}(BA)\).
+
+
+\subsubsection{Matrix Transpose}
+\[
+A^\top =
+\begin{pmatrix}
+a_{11} & a_{21} & \cdots & a_{m1} \\
+a_{12} & a_{22} & \cdots & a_{m2} \\
+\vdots & \vdots & \ddots & \vdots \\
+a_{1n} & a_{2n} & \cdots & a_{mn}
+\end{pmatrix}.
+\]
+\begin{itemize}
+\item $(A^\top)^\top = A$.
+\item $(AB)^\top = B^\top A^\top$ (reversing the order of multiplication when transposing a product).
+\end{itemize}
+
+\subsubsection{Matrix Inverse}
+If $A$ is an $n \times n$ invertible (non-singular) matrix, $A^{-1}$ is defined by:
+\[
+A A^{-1} = A^{-1} A = I_n,
+\]
+where $I_n$ is the $n \times n$ identity matrix.
+
+\begin{itemize}
+\item Not every square matrix is invertible (must have nonzero determinant).
+\item \emph{Inverse of a Product:} $(AB)^{-1} = B^{-1} A^{-1}$ (again, note how the order is reversed).
+\item $(A^{-1})^\top = (A^\top)^{-1}$ (transpose and inverse also reverse).
+\end{itemize}
+
+\[
+\textbf{Inverse of a 2x2 matrix:}
+\quad
+A = \begin{pmatrix}
+a & b \\
+c & d
+\end{pmatrix},
+\quad
+A^{-1} = \frac{1}{ad - bc}
+\begin{pmatrix}
+d & -b \\
+-c & a
+\end{pmatrix}.
+\]
+
+\[
+\textbf{General formula via adjugate:}
+\quad
+A^{-1} = \frac{1}{\det(A)} \,\text{adj}(A),
+\]
+where \(\text{adj}(A)\) is the \emph{adjugate} (or classical adjoint) of \(A\), 
+obtained by taking the transpose of the cofactor matrix of \(A\).
+
+\subsubsection{Symmetric \& Hermitian Matrices}
+A matrix $A \in \mathbb{R}^{n \times n}$ is \emph{symmetric} if $A = A^\top$. 
+Over the complex field, $A$ is \emph{Hermitian} if $A = A^*$ (the conjugate transpose).
+\begin{itemize}
+    \item Symmetric real matrices have real eigenvalues and can be diagonalized by an orthogonal matrix (spectral theorem).
+    \item Covariance matrices in statistics are by definition symmetric (and positive semidefinite).
+\end{itemize}
+
+\subsubsection{Skew-Symmetric (Antisymmetric) Matrices}
+A square matrix $A \in \mathbb{R}^{n \times n}$ is called \emph{skew--symmetric} (or \emph{antisymmetric}) if
+\[
+A^\top \;=\; -\,A.
+\]
+Equivalently, every diagonal element of a real skew--symmetric matrix is zero and the entries satisfy $a_{ij} = -\,a_{ji}$.
+
+\paragraph{Example (\,{$2 \times 2$}\,).}
+\[
+A \;=\;\begin{pmatrix} 0 & -a \\[2pt] a & 0 \end{pmatrix}, 
+\quad a \in \mathbb{R}.
+\]
+
+\paragraph{Key properties}
+\begin{itemize}
+    \item \textbf{Purely imaginary eigenvalues.}  
+          All eigenvalues of a real skew--symmetric matrix occur in conjugate pairs $\pm i\lambda$ $(\lambda \in \mathbb{R})$.  
+          Hence $\det(A) \ge 0$, and if $n$ is odd then $\det(A)=0$.
+          
+    \item \textbf{Orthogonal exponentials.}  
+          For any real $A=-A^\top$, the matrix exponential $Q(t)=e^{tA}$ is orthogonal and has determinant~$1$ (it lies in $\mathrm{SO}(n)$).  
+          Thus skew--symmetric matrices are infinitesimal generators of rotations.
+
+    \item \textbf{Zero quadratic form.}  
+          For every $x\in\mathbb{R}^n$, 
+          \(
+          x^\top A x \;=\;0.
+          \)
+          Consequently skew--symmetric matrices are always \emph{indefinite} in the sense of quadratic forms.
+
+    \item \textbf{Dimensionality.}  
+          The vector space of $n \times n$ real skew--symmetric matrices has dimension $\tfrac{n(n-1)}{2}$, exactly the number of distinct pairs $(i,j)$ with $i<j$.
+
+    \item \textbf{Pfaffian.}  
+          When $n$ is even, $\det(A)=\mathrm{pf}(A)^2$, where $\mathrm{pf}(A)$ is the \emph{Pfaffian} of~$A$.
+
+    \item \textbf{Relation to cross\,/\,wedge products.}  
+          In $\mathbb{R}^3$, every $A=-A^\top$ corresponds to a unique vector $\omega$ such that $A x = \omega \times x$ for all $x$; conversely, $\omega \mapsto [\omega]_\times$ embeds $\mathbb{R}^3$ into the space of $3\times 3$ skew--symmetric matrices.
+\end{itemize}
+
+\subsubsection{Definite Matrices}
+We define the following properties for symmetric matrices $A \in \mathbb{S}^n$:
+\begin{itemize}
+    \item \textbf{Positive Definite (PD):} If for all non-zero vectors $x \in \mathbb{R}^n$, $x^T Ax > 0$. Denoted as $A \succ 0$ or $A > 0$. The set of all positive definite matrices is often denoted $\mathbb{S}^n_{++}$.
+    
+    \item \textbf{Positive Semidefinite (PSD):} If for all vectors $x^T Ax \geq 0$. Denoted as $A \succeq 0$ or $A \geq 0$. The set is often denoted $\mathbb{S}^n_+$.
+    
+    \item \textbf{Negative Definite (ND):} If for all non-zero $x \in \mathbb{R}^n$, $x^T Ax < 0$. Denoted as $A \prec 0$ or $A < 0$.
+    
+    \item \textbf{Negative Semidefinite (NSD):} If for all $x \in \mathbb{R}^n$, $x^T Ax \leq 0$. Denoted as $A \preceq 0$ or $A \leq 0$.
+    
+    \item \textbf{Indefinite:} If neither PSD nor NSD - i.e., if there exist $x_1, x_2 \in \mathbb{R}^n$ such that $x_1^T Ax_1 > 0$ and $x_2^T Ax_2 < 0$.
+\end{itemize}
+
+\paragraph{Properties of Definite Matrices}
+\begin{itemize}
+    \item If $A$ is positive definite, then $-A$ is negative definite and vice versa.
+    \item If $A$ is positive semidefinite, then $-A$ is negative semidefinite and vice versa.
+    \item If $A$ is indefinite, then $-A$ is also indefinite.
+    \item Positive definite and negative definite matrices are always full rank and invertible.
+    \item For any matrix $A \in \mathbb{R}^{m\times n}$, the Gram matrix $G = A^T A$ is always positive semidefinite.
+    \item If $m \geq n$ and $A$ is full rank, then $G = A^T A$ is positive definite.
+\end{itemize}
+
+\paragraph{Proof of Full Rank for Definite Matrices}
+To see why definite matrices are full rank, suppose matrix $A \in \mathbb{R}^{n\times n}$ is not full rank. Then some column $j$ can be expressed as a linear combination of other columns:
+\[
+a_j = \sum_{i\neq j} x_ia_i
+\]
+for some $x_1, \ldots, x_{j-1}, x_{j+1}, \ldots, x_n \in \mathbb{R}$. Setting $x_j = -1$, we have:
+\[
+Ax = \sum_{i=1}^n x_ia_i = 0
+\]
+But this implies $x^T Ax = 0$ for some non-zero vector $x$, so $A$ must be neither positive definite nor negative definite.
+
+\subsubsection{Quadratic Forms}
+Given a square matrix $A \in \mathbb{R}^{n\times n}$ and a vector $x \in \mathbb{R}^n$, the scalar value $x^T Ax$ is called a quadratic form. Written explicitly:
+\[
+x^T Ax = \sum_{i=1}^n x_i(Ax)_i = \sum_{i=1}^n x_i\left(\sum_{j=1}^n A_{ij} x_j\right) = \sum_{i=1}^n\sum_{j=1}^n A_{ij} x_ix_j.
+\]
+
+Note that:
+\[
+x^T Ax = (x^T Ax)^T = x^T A^T x = x^T\left(\frac{1}{2}A + \frac{1}{2}A^T\right)x,
+\]
+where the first equality follows from the fact that the transpose of a scalar is equal to itself, and the second equality follows from averaging two equal quantities. From this, we can conclude that only the symmetric part of $A$ contributes to the quadratic form.
+
+\subsubsection{Orthogonal (or Orthonormal) Matrices}
+An \emph{orthogonal matrix} $Q \in \mathbb{R}^{n \times n}$ satisfies $Q^\top Q = QQ^\top = I_n$. 
+In complex spaces, the analogous property is for \emph{unitary} matrices $U$ where $U^* U = I_n$. 
+\begin{itemize}
+    \item Orthogonal matrices preserve vector norms: $\|Q \mathbf{x}\|_2 = \|\mathbf{x}\|_2$.
+    \item The inverse of an orthogonal matrix is its transpose ($Q^{-1} = Q^\top$).
+\end{itemize}
+
+
+\subsubsection{Linear Independence and Rank}
+A set of vectors $\{x_1, x_2, \ldots, x_n\} \subset \mathbb{R}^m$ is said to be (linearly) independent if no vector can be represented as a linear combination of the remaining vectors. Conversely, if one vector belonging to the set can be represented as a linear combination of the remaining vectors, then the vectors are said to be (linearly) dependent. That is, if
+\[
+x_n = \sum_{i=1}^{n-1} \alpha_i x_i
+\]
+for some scalar values $\alpha_1, \ldots, \alpha_{n-1} \in \mathbb{R}$, then we say that the vectors $x_1, \ldots, x_n$ are linearly dependent; otherwise, the vectors are linearly independent. For example, the vectors
+\[
+x_1 = \begin{pmatrix} 1 \\ 2 \\ 3 \end{pmatrix}, \quad
+x_2 = \begin{pmatrix} 4 \\ 1 \\ 5 \end{pmatrix}, \quad
+x_3 = \begin{pmatrix} 2 \\ -3 \\ -1 \end{pmatrix}
+\]
+are linearly dependent because $x_3 = -2x_1 + x_2$.
+
+The column rank of a matrix $A \in \mathbb{R}^{m\times n}$ is the size of the largest subset of columns of $A$ that constitute a linearly independent set. With some abuse of terminology, this is often referred to simply as the number of linearly independent columns of $A$. In the same way, the row rank is the largest number of rows of $A$ that constitute a linearly independent set.
+
+For any matrix $A \in \mathbb{R}^{m\times n}$, it turns out that the column rank of $A$ is equal to the row rank of $A$ (though we will not prove this), and so both quantities are referred to collectively as the rank of $A$, denoted as $\text{rank}(A)$. The following are some basic properties of the rank:
+
+\begin{itemize}
+    \item For $A \in \mathbb{R}^{m\times n}$, $\text{rank}(A) \leq \min(m,n)$. If $\text{rank}(A) = \min(m,n)$, then $A$ is said to be full rank.
+    \item For $A \in \mathbb{R}^{m\times n}$, $\text{rank}(A) = \text{rank}(A^T)$.
+    \item For $A \in \mathbb{R}^{m\times n}, B \in \mathbb{R}^{n\times p}$, $\text{rank}(AB) \leq \min(\text{rank}(A), \text{rank}(B))$.
+    \item For $A, B \in \mathbb{R}^{m\times n}$, $\text{rank}(A + B) \leq \text{rank}(A) + \text{rank}(B)$.
+\end{itemize}
+
+\subsubsection{Rank Preserving Operations}
+
+In linear algebra, \textbf{rank preserving operations} are operations that do \textbf{not change the rank} of a matrix. The \textit{rank} of a matrix is the dimension of its column space (or row space), i.e., the maximum number of linearly independent rows or columns.
+
+\vspace{0.5em}
+
+
+\begin{enumerate}
+    \item \textbf{Elementary Row Operations} \\
+    These operations are used in Gaussian elimination and do not change the rank:
+    \begin{itemize}
+        \item Swapping two rows.
+        \item Multiplying a row by a non-zero scalar.
+        \item Adding a scalar multiple of one row to another.
+    \end{itemize}
+    Row operations preserve the \textit{row rank}, and since row rank equals column rank, they preserve the overall rank.
+
+    \item \textbf{Multiplication by an Invertible Matrix} \\
+    If $A$ is a matrix and $P$, $Q$ are invertible matrices, then:
+    \[
+        \text{rank}(PA) = \text{rank}(A), \quad \text{rank}(AQ) = \text{rank}(A)
+    \]
+    Left multiplication changes the row space basis, and right multiplication changes the column space basis. Neither affects the rank.
+
+    \item \textbf{Transposition} \\
+    Transposing a matrix does not change its rank:
+    \[
+        \text{rank}(A^T) = \text{rank}(A)
+    \]
+
+    \item \textbf{Similarity Transformation (for square matrices)} \\
+    If $P$ is invertible and $A$ is a square matrix:
+    \[
+        \text{rank}(P^{-1}AP) = \text{rank}(A)
+    \]
+\end{enumerate}
+
+\subsubsection{Non-Rank-Preserving Operations}
+For contrast, here are some operations that \textbf{can change the rank}:
+\begin{itemize}
+    \item Multiplying by a non-invertible matrix.
+    \item Zeroing out rows or columns.
+    \item Projecting onto a lower-dimensional subspace.
+\end{itemize}
+
+
+\subsection{Special Matrices}
+\subsubsection{Identity Matrix}
+The \emph{identity matrix} $I_n$ is an $n \times n$ matrix with 1's on the main diagonal and 0's elsewhere:
+\[
+I_n = 
+\begin{pmatrix}
+1 & 0 & \cdots & 0 \\
+0 & 1 & \cdots & 0 \\
+\vdots & \vdots & \ddots & \vdots \\
+0 & 0 & \cdots & 1
+\end{pmatrix}.
+\]
+\begin{itemize}
+    \item For any $n \times n$ matrix $A$, $A I_n = I_n A = A$.
+    \item The identity matrix is its own inverse: $I_n^{-1} = I_n$.
+\end{itemize}
+
+
+
+
+\subsubsection{All-Ones (Unit) Matrix}
+Sometimes referred to as the \emph{unit matrix of ones} (not to be confused with the identity matrix), 
+the $m \times n$ all-ones matrix is denoted by $J_{m \times n}$ or simply $J$ when dimensions are clear:
+\[
+J_{m \times n} = 
+\begin{pmatrix}
+1 & 1 & \cdots & 1 \\
+1 & 1 & \cdots & 1 \\
+\vdots & \vdots & \ddots & \vdots \\
+1 & 1 & \cdots & 1
+\end{pmatrix}_{m \times n}.
+\]
+\begin{itemize}
+    \item $J_{m \times n}$ has every entry equal to 1.
+    \item When $m = n$, $J_{n \times n}$ can be an eigenvector/eigenvalue example: 
+          one eigenvalue is $n$ (with eigenvector $\mathbf{1} = (1,1,\dots,1)^\top$), 
+          and the others are 0.
+\end{itemize}
+
+\subsubsection{Diagonal Matrix}
+A matrix $D \in \mathbb{R}^{n \times n}$ is called \emph{diagonal} if $d_{ij} = 0$ for all $i \neq j$:
+\[
+D = 
+\begin{pmatrix}
+d_{1} & 0 & \cdots & 0 \\
+0 & d_{2} & \cdots & 0 \\
+\vdots & \vdots & \ddots & \vdots \\
+0 & 0 & \cdots & d_{n}
+\end{pmatrix}.
+\]
+\begin{itemize}
+    \item Diagonal matrices commute: $D_1 D_2 = D_2 D_1$ because multiplication is elementwise for the diagonal entries.
+    \item Inverses and powers of a diagonal matrix are easy to compute (assuming diagonal entries are nonzero).
+\end{itemize}
+
+\subsubsection{Jacobian Matrix}
+If $\mathbf{f}: \mathbb{R}^n \to \mathbb{R}^m$ is a vector-valued function 
+$\mathbf{f}(\mathbf{x}) = (f_1(\mathbf{x}),\ldots,f_m(\mathbf{x}))^\top$, 
+then the \emph{Jacobian matrix} $J(\mathbf{f})(\mathbf{x})$ is an $m \times n$ matrix whose 
+$(i,j)$th entry is $\partial f_i/\partial x_j$. Symbolically,
+\[
+J(\mathbf{f})(\mathbf{x}) 
+= \begin{pmatrix}
+\frac{\partial f_1}{\partial x_1} & \cdots & \frac{\partial f_1}{\partial x_n} \\
+\vdots & \ddots & \vdots \\
+\frac{\partial f_m}{\partial x_1} & \cdots & \frac{\partial f_m}{\partial x_n}
+\end{pmatrix}.
+\]
+
+\subsubsection{Hessian Matrix}
+If $f: \mathbb{R}^n \to \mathbb{R}$ is a scalar-valued function, the \emph{Hessian matrix} 
+$H_f(\mathbf{x})$ is the $n \times n$ matrix of second partial derivatives:
+\[
+H_f(\mathbf{x}) = 
+\begin{pmatrix}
+\frac{\partial^2 f}{\partial x_1^2} & \frac{\partial^2 f}{\partial x_1 \partial x_2} & \cdots & \frac{\partial^2 f}{\partial x_1 \partial x_n} \\
+\frac{\partial^2 f}{\partial x_2 \partial x_1} & \frac{\partial^2 f}{\partial x_2^2} & \cdots & \frac{\partial^2 f}{\partial x_2 \partial x_n} \\
+\vdots & \vdots & \ddots & \vdots \\
+\frac{\partial^2 f}{\partial x_n \partial x_1} & \frac{\partial^2 f}{\partial x_n \partial x_2} & \cdots & \frac{\partial^2 f}{\partial x_n^2}
+\end{pmatrix}.
+\]
+Under suitable smoothness conditions (Schwarz's theorem), mixed partials are equal, 
+so $H_f(\mathbf{x})$ is symmetric.
+
+\subsubsection{Covariance Matrix}
+A covariance matrix $C \in \mathbb{R}^{n \times n}$ is defined for a random vector 
+$\mathbf{X} \in \mathbb{R}^n$ by
+\[
+C = \mathbb{E}\bigl[(\mathbf{X} - \mathbb{E}[\mathbf{X}])(\mathbf{X} - \mathbb{E}[\mathbf{X}])^\top\bigr].
+\]
+\begin{itemize}
+    \item $C$ is always symmetric positive semidefinite.
+    \item If all eigenvalues of $C$ are strictly positive, $C$ is positive definite.
+    \item Frequently appears in statistics, Gaussian distributions, and kernel methods in ML.
+\end{itemize}
+
+
+\subsubsection{Toeplitz Matrices}
+A \emph{Toeplitz matrix} has constant diagonals:
+\[
+T = \begin{pmatrix}
+t_0 & t_{-1} & t_{-2} & \cdots & t_{-(n-1)} \\
+t_1 & t_0 & t_{-1} & \cdots & t_{-(n-2)} \\
+t_2 & t_1 & t_0 & \cdots & t_{-(n-3)} \\
+\vdots & \vdots & \vdots & \ddots & \vdots \\
+t_{n-1} & t_{n-2} & t_{n-3} & \cdots & t_0
+\end{pmatrix}
+\]
+\begin{itemize}
+    \item Arise in signal processing and time series analysis
+    \item Can be multiplied by a vector in $O(n \log n)$ time using FFT
+\end{itemize}
+
+\subsubsection{Circulant Matrices}
+A \emph{circulant matrix} is a special Toeplitz matrix where each row is a cyclic shift of the previous row:
+\[
+C = \begin{pmatrix}
+c_0 & c_{n-1} & c_{n-2} & \cdots & c_1 \\
+c_1 & c_0 & c_{n-1} & \cdots & c_2 \\
+c_2 & c_1 & c_0 & \cdots & c_3 \\
+\vdots & \vdots & \vdots & \ddots & \vdots \\
+c_{n-1} & c_{n-2} & c_{n-3} & \cdots & c_0
+\end{pmatrix}
+\]
+\begin{itemize}
+    \item Diagonalized by the DFT matrix
+    \item Used in circular convolution
+\end{itemize}
+
+\subsubsection{Vandermonde Matrices}
+A \emph{Vandermonde matrix} has geometric progression in its columns:
+\[
+V = \begin{pmatrix}
+1 & x_1 & x_1^2 & \cdots & x_1^{n-1} \\
+1 & x_2 & x_2^2 & \cdots & x_2^{n-1} \\
+\vdots & \vdots & \vdots & \ddots & \vdots \\
+1 & x_n & x_n^2 & \cdots & x_n^{n-1}
+\end{pmatrix}
+\]
+\begin{itemize}
+    \item Determinant: $\det(V) = \prod_{1 \le i < j \le n} (x_j - x_i)$
+    \item Used in polynomial interpolation
+\end{itemize}
+
+\subsubsection{Block Matrices}
+A \emph{block matrix} is partitioned into submatrices:
+\[
+M = \begin{pmatrix}
+A & B \\
+C & D
+\end{pmatrix}
+\]
+\begin{itemize}
+    \item Block matrix multiplication follows the same rules as regular matrix multiplication
+    \item Schur complement: $M/A = D - CA^{-1}B$ (if $A$ is invertible)
+    \item Determinant formula: $\det(M) = \det(A)\det(M/A)$
+\end{itemize}
+
+\subsubsection{Hankel Matrices}
+A \emph{Hankel matrix} has constant anti-diagonals:
+\[
+H = \begin{pmatrix}
+h_0 & h_1 & h_2 & \cdots & h_{n-1} \\
+h_1 & h_2 & h_3 & \cdots & h_n \\
+h_2 & h_3 & h_4 & \cdots & h_{n+1} \\
+\vdots & \vdots & \vdots & \ddots & \vdots \\
+h_{n-1} & h_n & h_{n+1} & \cdots & h_{2n-2}
+\end{pmatrix}
+\]
+\begin{itemize}
+    \item Used in system identification
+    \item Related to Toeplitz matrices via permutation
+\end{itemize}

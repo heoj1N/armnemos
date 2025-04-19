@@ -1,0 +1,71 @@
+\section{Matrix Calculus and Gradients}
+
+\subsection{Gradient with Respect to a Vector}
+Let $f(\mathbf{x})$ be a scalar function, where $\mathbf{x} \in \mathbb{R}^n$. Then the gradient 
+$\nabla_{\mathbf{x}} f(\mathbf{x})$ is a column vector in $\mathbb{R}^n$ whose $i$-th entry is 
+$\frac{\partial f}{\partial x_i}$:
+\[
+\nabla_{\mathbf{x}} f(\mathbf{x}) 
+= \begin{pmatrix}
+\frac{\partial f}{\partial x_1} \\
+\frac{\partial f}{\partial x_2} \\
+\vdots \\
+\frac{\partial f}{\partial x_n}
+\end{pmatrix}.
+\]
+
+\paragraph{Chain Rule Example.}
+If $\mathbf{y} = A \mathbf{x}$ for $A \in \mathbb{R}^{m \times n}$, and $f(\mathbf{x}) = g(\mathbf{y}) = g(A\mathbf{x})$, then
+\[
+\nabla_{\mathbf{x}} f(\mathbf{x}) 
+= \nabla_{\mathbf{x}} \, g(A\mathbf{x}) 
+= A^\top \nabla_{\mathbf{y}} g(\mathbf{y}).
+\]
+
+\subsection{Gradient with Respect to a Matrix}
+Let $F(A)$ be a scalar function of the matrix $A \in \mathbb{R}^{m \times n}$. 
+The gradient of $F$ with respect to $A$ is another $m \times n$ matrix whose $(i,j)$-th entry is 
+$\frac{\partial F}{\partial a_{ij}}$:
+\[
+(\nabla_A F)_{ij} = \frac{\partial F}{\partial a_{ij}}.
+\]
+A useful identity is:
+\[
+\nabla_A \, \mathrm{tr}(BA) = B^\top,
+\]
+where $\mathrm{tr}(\cdot)$ denotes the trace operator.
+
+\subsection{Jacobian}
+For a vector-valued function $\mathbf{f} : \mathbb{R}^n \to \mathbb{R}^m$, the \emph{Jacobian} 
+is defined as the $m \times n$ matrix whose $(i, j)$-th entry is 
+\(
+\frac{\partial f_i}{\partial x_j}.
+\)
+That is,
+\[
+J_{\mathbf{f}}(\mathbf{x}) 
+= \begin{pmatrix}
+\frac{\partial f_1}{\partial x_1} & \cdots & \frac{\partial f_1}{\partial x_n} \\
+\vdots & \ddots & \vdots \\
+\frac{\partial f_m}{\partial x_1} & \cdots & \frac{\partial f_m}{\partial x_n}
+\end{pmatrix}.
+\]
+In linear algebra terms, the Jacobian represents the best linear approximation to $\mathbf{f}$ around 
+a given point $\mathbf{x}$. It is fundamental in multivariate calculus, numerical methods, and 
+sensitivity analysis.
+
+\subsection{Hessian}
+For a scalar function $f : \mathbb{R}^n \to \mathbb{R}$, the \emph{Hessian} is the $n \times n$ matrix 
+of second partial derivatives:
+\[
+H_f(\mathbf{x}) 
+= \begin{pmatrix}
+\frac{\partial^2 f}{\partial x_1^2} & \cdots & \frac{\partial^2 f}{\partial x_1 \partial x_n} \\
+\vdots & \ddots & \vdots \\
+\frac{\partial^2 f}{\partial x_n \partial x_1} & \cdots & \frac{\partial^2 f}{\partial x_n^2}
+\end{pmatrix}.
+\]
+If $f$ is sufficiently smooth, $H_f(\mathbf{x})$ is symmetric. The Hessian 
+captures second-order information about curvature, which is central to second-order optimization 
+techniques (e.g., Newton’s method). In linear algebra, analyzing the Hessian helps to identify whether 
+a critical point is a local maximum, local minimum, or saddle point (by examining eigenvalues).

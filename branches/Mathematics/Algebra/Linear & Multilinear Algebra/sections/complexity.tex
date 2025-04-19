@@ -1,0 +1,79 @@
+\section{Computational Complexity}
+\subsection{Matrix Multiplication}
+\subsubsection{Classical Algorithm}
+The standard matrix multiplication algorithm for $n \times n$ matrices has complexity $O(n^3)$:
+\[
+C_{ij} = \sum_{k=1}^n A_{ik} B_{kj}
+\]
+
+\subsubsection{Strassen's Algorithm}
+Strassen's algorithm reduces complexity to $O(n^{\log_2 7}) \approx O(n^{2.81})$:
+\begin{itemize}
+    \item Divides matrices into 2x2 blocks
+    \item Uses 7 multiplications instead of 8
+    \item Recursively applies the same strategy
+\end{itemize}
+
+\subsubsection{Coppersmith-Winograd Algorithm}
+Theoretical complexity of $O(n^{2.376})$, but not practical for typical matrix sizes.
+
+\subsection{Fast Fourier Transform}
+\begin{itemize}
+    \item Complexity: $O(n \log n)$ for $n$-point DFT
+    \item Applications:
+        \begin{itemize}
+            \item Polynomial multiplication
+            \item Convolution
+            \item Signal processing
+        \end{itemize}
+\end{itemize}
+
+\subsection{Sparse Matrix Operations}
+\begin{itemize}
+    \item Storage formats:
+        \begin{itemize}
+            \item COO (Coordinate format)
+            \item CSR (Compressed Sparse Row)
+            \item CSC (Compressed Sparse Column)
+        \end{itemize}
+    \item Matrix-vector multiplication: $O(\text{nnz})$ where nnz is number of nonzeros
+    \item Sparse matrix multiplication: $O(\text{flops})$ where flops is number of floating-point operations
+\end{itemize}
+
+\subsection{Parallel Computing}
+\subsubsection{Data Distribution}
+\begin{itemize}
+    \item Block distribution
+    \item Cyclic distribution
+    \item Block-cyclic distribution
+\end{itemize}
+
+\subsubsection{Communication Patterns}
+\begin{itemize}
+    \item Point-to-point communication
+    \item Collective operations (broadcast, reduce, scatter, gather)
+    \item All-to-all communication
+\end{itemize}
+
+\subsection{Cache Optimization}
+\begin{itemize}
+    \item Blocking/tiling for matrix multiplication
+    \item Cache-oblivious algorithms
+    \item Memory hierarchy considerations
+\end{itemize}
+
+\subsection{GPU Computing}
+\begin{itemize}
+    \item CUDA programming model
+    \item Memory coalescing
+    \item Warp-level parallelism
+    \item Shared memory optimization
+\end{itemize}
+
+\subsection{Complexity Classes}
+\begin{itemize}
+    \item P: Problems solvable in polynomial time
+    \item NP: Problems verifiable in polynomial time
+    \item BPP: Problems solvable by probabilistic algorithms
+    \item NC: Problems solvable in polylogarithmic time with polynomial processors
+\end{itemize}

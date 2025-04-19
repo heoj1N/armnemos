@@ -1,0 +1,210 @@
+\section{Special Operations and Rules}
+
+\subsection{Ordering Rules}
+\begin{quote}
+\textbf{Take‑away:} \emph{Transposing or inverting a product reverses the order of its factors.}
+\end{quote}
+
+\subsubsection*{Transpose}
+\begin{align}
+(AB)^\top &= B^\top A^\top,\\[4pt]
+(\mathbf u\,\mathbf v^\top)^\top &= \mathbf v\,\mathbf u^\top,\\[4pt]
+(A^{-1})^\top &= (A^\top)^{-1}.
+\end{align}
+
+\subsubsection*{Inverse}
+\begin{align}
+(AB)^{-1} &= B^{-1} A^{-1},\\[4pt]
+(A_1A_2\cdots A_k)^{-1} &= A_k^{-1}\cdots A_2^{-1}A_1^{-1}.
+\end{align}
+
+\paragraph{Why?} The rules follow directly from the defining properties of transpose and inverse:
+\begin{itemize}
+  \item $(AB)^\top$ is the unique matrix satisfying $\langle AB\mathbf x,\mathbf y\rangle=\langle \mathbf x,(AB)^\top\mathbf y\rangle$.
+  \item $(AB)^{-1}$ is the unique matrix such that $(AB)(AB)^{-1}=I$; multiply out and use associativity.
+\end{itemize}
+
+\noindent\textbf{Example 1 (Transpose of a product).} Let $A\in\mathbb R^{m\times n}$ and $B\in\mathbb R^{n\times p}$. Then
+$$(AB)^\top=B^\top A^\top\in\mathbb R^{p\times m}.$$
+
+\medskip
+\noindent\textbf{Example 2 (Inverse of a product).} For $A,B\in\mathrm{GL}(m)$ we have $(AB)^{-1}=B^{-1}A^{-1}$. 
+
+\medskip
+\noindent\textbf{Example 3 (Associativity vs.~commutativity).} Given $\mathbf x\in\mathbb R^{p}$,
+$$(AB)\mathbf x=A(B\mathbf x)\quad\text{but}\quad\mathbf x(AB)\text{ is undefined.}$$
+
+\subsection{Trace Tricks}
+The trace operator is \emph{cyclic} and \emph{linear}:
+\begin{align}
+\operatorname{tr}(ABC) &= \operatorname{tr}(BCA) = \operatorname{tr}(CAB),\\
+\operatorname{tr}(A^\top) &= \operatorname{tr}(A),\\
+\operatorname{tr}(\alpha A + \beta B) &= \alpha\,\operatorname{tr}(A) + \beta\,\operatorname{tr}(B).
+\end{align}
+These identities shorten many derivations in machine‑learning proofs, e.g.~when reducing nested summations to a single line.
+
+\subsection{Vectorisation and the Kronecker Product}
+For $A\in\mathbb R^{m\times n}$, define
+\[
+\operatorname{vec}(A) := \begin{bmatrix} a_{:,1} \\ \vdots \\ a_{:,n} \end{bmatrix} \in \mathbb R^{mn}.
+\]
+A cornerstone identity is
+\[
+\operatorname{vec}(ABC) = (C^\top \otimes A)\,\operatorname{vec}(B),
+\]
+where $\otimes$ denotes the Kronecker product. It converts matrix equations into large linear systems and underpins many second‑order optimisation methods.
+
+\subsection{Associativity Reminder}
+Matrix multiplication is associative:
+\[
+(AB)C = A(BC),
+\]
+provided the dimensions match. Remember, \emph{associative $\neq$ commutative}. Missing this distinction is a common source of bugs in code.
+
+\subsection{Determinant Rules}
+\begin{quote}
+\textbf{Take‑away:} \emph{Determinants turn products into products of scalars and ignore transposes.}
+\end{quote}
+
+\subsubsection*{Key identities}
+\begin{align}
+\det(AB) &= \det(A)\,\det(B),\\[4pt]
+\det(A^\top) &= \det(A),\\[4pt]
+\det(A^{-1}) &= \det(A)^{-1},\\[4pt]
+\det(A+\mathbf u\mathbf v^\top) &= \det(A)\bigl(1+\mathbf v^\top A^{-1}\mathbf u\bigr)
+\quad\text{(matrix‑determinant lemma)}.
+\end{align}
+
+\paragraph{Why?}
+Multiplicativity of $\det$ follows from the Leibniz formula and multilinearity of rows.
+The lemma is a one‑rank update proven by expanding a block determinant.
+
+\subsubsection*{Worked Example}
+For $A\in\mathrm{GL}(n)$ and vectors $\mathbf u,\mathbf v\in\mathbb R^{n}$,
+\[
+\det\!\bigl(A + \mathbf u\mathbf v^\top\bigr)
+      =\det(A)\bigl(1+\mathbf v^\top A^{-1}\mathbf u\bigr),
+\]
+useful in Gaussian‑process log‑likelihoods where $A$ is large but $A^{-1}\mathbf u$ is cached.
+
+\subsection{Rank, Trace, and Eigenvalue Facts}
+\begin{quote}
+\textbf{Take‑away:} \emph{Rank bounds, trace, and determinant encode eigenvalue information.}
+\end{quote}
+
+\subsubsection*{Snapshot}
+\begin{align}
+\operatorname{rank}(AB) &\le \min\!\bigl(\operatorname{rank}A,\operatorname{rank}B\bigr),\\[4pt]
+\operatorname{rank}(A+\mathbf u\mathbf v^\top)
+  &= \operatorname{rank}(A) + 
+     \begin{cases}
+       0,&\mathbf v^\top A^{\dagger}\mathbf u=-1,\\
+       1,&\text{otherwise},
+     \end{cases}\\[6pt]
+\operatorname{tr}(A)   &= \sum_{i=1}^{n}\lambda_i,\\
+\det(A)                &= \prod_{i=1}^{n}\lambda_i,\\
+\lambda(AB)            &= \lambda(BA)\quad\text{(same multiset)}.
+\end{align}
+
+\paragraph{Why?}
+Rank is the dimension of the image; composing two linear maps cannot enlarge it.
+Trace and determinant coincide with the first and last elementary symmetric polynomials of the eigenvalues.
+$AB$ and $BA$ share the same characteristic polynomial because $\det(\lambda I-AB)=\det(\lambda I-BA)$.
+
+\subsection{Norm Equivalences}
+\begin{quote}
+\textbf{Take‑away:} \emph{The Frobenius norm is a trace; the spectral norm is an eigenvalue.}
+\end{quote}
+
+\subsubsection*{Formulas}
+\begin{align}
+\|A\|_F^2 &= \operatorname{tr}\!\bigl(A^\top A\bigr),\\[4pt]
+\|A\|_2   &= \sqrt{\lambda_{\max}\!\bigl(A^\top A\bigr)},\\[4pt]
+\|A\|_F   &= \|\operatorname{vec}(A)\|_2.
+\end{align}
+
+\paragraph{Why?}
+Diagonalise $A^\top A=Q\Lambda Q^\top$ with $Q$ orthogonal.
+The eigenvalues $\lambda_i$ are squares of singular values $\sigma_i$,
+so $\|A\|_F^2=\sum_i\sigma_i^{2}=\operatorname{tr}(\Lambda)$ and
+$\|A\|_2=\max_i\sigma_i$.
+
+\subsection{Projection and Idempotent Matrices}
+\begin{quote}
+\textbf{Take‑away:} \emph{Orthogonal projections are symmetric idempotents.}
+\end{quote}
+
+Given $A\in\mathbb R^{m\times n}$ with full column rank, the matrix
+\[
+P := A\bigl(A^\top A\bigr)^{-1}A^\top
+\]
+satisfies
+\[
+P^2=P,\qquad P^\top = P.
+\]
+
+\paragraph{Why?}
+Both properties follow by straightforward multiplication and transpose rules.
+$P$ projects any vector onto the column space of $A$ along the orthogonal complement.
+
+\subsubsection*{Worked Example}
+In least squares, the fitted values are $\hat{\mathbf y}=P\mathbf y$; idempotence gives
+$\hat{\hat{\mathbf y}}=\hat{\mathbf y}$, a sanity check for regression code.
+
+\subsection{Pseudoinverse Relations}
+\begin{quote}
+\textbf{Take‑away:} \emph{The Moore–Penrose pseudoinverse behaves like an inverse on the range and kernel.}
+\end{quote}
+
+\begin{align}
+\bigl(A^\dagger\bigr)^\dagger &= A,\\[4pt]
+(A^\top)^\dagger &= \bigl(A^\dagger\bigr)^\top,\\[4pt]
+AA^\dagger A &= A,\qquad
+A^\dagger A A^\dagger = A^\dagger.
+\end{align}
+
+\paragraph{Why?}
+All four Moore–Penrose conditions are met by construction via $A=U\Sigma V^\top$
+and $A^\dagger=V\Sigma^\dagger U^\top$ in an SVD.
+
+\subsection{Block‑Matrix Tricks}
+\begin{quote}
+\textbf{Take‑away:} \emph{Schur complements turn block inversion into one small inverse.}
+\end{quote}
+
+For a block matrix
+\[
+M \;=\;
+\begin{bmatrix}
+A & B\\[4pt]
+C & D
+\end{bmatrix},\qquad
+A\in\mathbb R^{k\times k},
+\]
+with $A$ invertible, the inverse is
+\[
+M^{-1} =
+\begin{bmatrix}
+A^{-1} + A^{-1}B S^{-1} C A^{-1} & -A^{-1} B S^{-1}\\[6pt]
+- S^{-1} C A^{-1} & S^{-1}
+\end{bmatrix},
+\quad
+S := D - C A^{-1} B
+\quad\text{(Schur complement)}.
+\]
+
+\paragraph{Why?}
+Multiply the candidate inverse by $M$ and collect block products; the off‑diagonal
+blocks vanish thanks to $S$.
+
+\subsection{SVD Cheatsheet}
+\begin{quote}
+\textbf{Take‑away:} \emph{Singular values unify rank, norms, and conditioning.}
+\end{quote}
+
+If $A=U\Sigma V^\top$ with singular values $\sigma_1\ge\dots\ge\sigma_r>0$,
+\begin{align}
+\operatorname{rank}(A) &= r,\\
+\|A\|_F^2             &= \sum_{i=1}^{r}\sigma_i^2,\\
+\kappa_2(A)           &= \frac{\sigma_1}{\sigma_r}\quad\text{(spectral condition number)}.
+\end{align}

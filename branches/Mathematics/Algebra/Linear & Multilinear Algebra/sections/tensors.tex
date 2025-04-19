@@ -1,0 +1,223 @@
+\section{Tensors}
+
+\noindent
+A \emph{tensor} is an $N$‑dimensional array that generalizes
+scalars ($0$‑D), vectors ($1$‑D), and matrices ($2$‑D).
+We denote an order‑$N$ tensor by calligraphic letters
+($\mathcal{X},\mathcal{Y},\dots$)
+and write
+\[
+  \mathcal{X}\in\mathbb{R}^{I_1\times I_2\times\cdots\times I_N},
+  \qquad
+  x_{i_1,i_2,\dots,i_N}\in\mathbb{R}.
+\]
+
+\subsubsection*{Running Example (order 3)}  
+Throughout this chapter we use
+\[
+\mathcal{X}\;\in\;\mathbb{R}^{2\times2\times2},
+\quad
+\begin{aligned}
+\mathcal{X}(:,:,1)&=\begin{pmatrix} 1 & 3 \\ 2 & 4 \end{pmatrix},
+\\[4pt]
+\mathcal{X}(:,:,2)&=\begin{pmatrix} 5 & 7 \\ 6 & 8 \end{pmatrix}.
+\end{aligned}
+\]
+Individual entries are
+$x_{1,2,1}=3,\;x_{2,2,2}=8$, etc.
+(See Figure~\ref{fig:tensor-slices} for a sketch if desired.)
+
+
+\subsection{Operations on Tensors}
+\subsubsection{Element‑wise Operations and Scalar Multiplication}
+% --------------------------------------------------
+For $\mathcal{X},\mathcal{Y}\in\mathbb{R}^{I_1\times\cdots\times I_N}$
+and $\alpha\in\mathbb{R}$
+\[
+(\mathcal{X}+\mathcal{Y})_{i_1,\dots,i_N}=x_{i_1,\dots,i_N}+y_{i_1,\dots,i_N},
+\qquad
+(\alpha\mathcal{X})_{i_1,\dots,i_N}=\alpha\,x_{i_1,\dots,i_N}.
+\]
+All vector‑space axioms
+(commutativity, associativity, distributivity, …) carry over index‑wise.
+
+\paragraph{Example.}
+With the running $\mathcal{X}$ and
+\(
+\mathcal{Y}(:,:,1)=\bigl(\small\begin{smallmatrix}0&1\\1&0\end{smallmatrix}\bigr),
+\;
+\mathcal{Y}(:,:,2)=\bigl(\small\begin{smallmatrix}1&0\\0&1\end{smallmatrix}\bigr),
+\)
+\[
+(\mathcal{X}+\mathcal{Y})(:,:,1)=
+\begin{pmatrix}1&4\\3&4\end{pmatrix},\qquad
+2\mathcal{X}(:,:,2)=
+\begin{pmatrix}10&14\\12&16\end{pmatrix}.
+\]
+
+\subsubsection{Fibers, Slices, and Matricization}
+% --------------------------------------------------
+\begin{itemize}
+\item \textbf{Mode‑$n$ fiber:}
+  Fix all indices except $i_n$.  
+  Example: the column‐mode fiber
+  $\mathbf{x}_{:11}=\bigl(x_{1,1,1},\,x_{2,1,1}\bigr)^\top
+  =(1,2)^\top$ in the running tensor.
+\item \textbf{Slice:}  Fix all but two indices, e.g.\  
+  $\mathcal{X}(:,:,2)$ above.
+\item \textbf{Matricization / unfolding:}
+  Rearrange $\mathcal{X}$ into a matrix $X_{(n)}\in\mathbb{R}^{I_n\times(I_1\cdots I_{n-1}I_{n+1}\cdots I_N)}$
+  by stacking all mode‑$n$ fibers as columns.  
+  In the example
+  \[
+    X_{(1)}=
+    \begin{pmatrix}
+      1 & 5 & 3 & 7 \\
+      2 & 6 & 4 & 8
+    \end{pmatrix}.
+  \]
+\end{itemize}
+
+\subsubsection{Mode‑$n$ (Matrix) Multiplication}
+% --------------------------------------------------
+For
+$\mathcal{X}\in\mathbb{R}^{I_1\times\cdots\times I_N}$
+and
+$A^{(n)}\in\mathbb{R}^{J\times I_n}$,
+the mode‑$n$ product is
+\[
+  \mathcal{Y}=\mathcal{X}\times_n A^{(n)}
+  \quad\Longleftrightarrow\quad
+  Y_{(n)}=A^{(n)}\,X_{(n)}.
+\]
+The result lives in
+$I_1\times\cdots\times I_{n-1}\times J\times I_{n+1}\times\cdots\times I_N$.
+
+\paragraph{Example (mode 1).}
+With
+\(
+A^{(1)}=
+\begin{pmatrix}1&0\\0&1\\1&1\end{pmatrix}\in\mathbb{R}^{3\times2},
+\)
+\[
+\mathcal{Y}
+=\mathcal{X}\times_1 A^{(1)}
+\in\mathbb{R}^{\boxed{3}\times2\times2},
+\qquad
+Y_{(1)}=
+A^{(1)}X_{(1)}=
+\begin{pmatrix}
+1&5&3&7\\
+2&6&4&8\\
+3&11&7&15
+\end{pmatrix}.
+\]
+
+\subsubsection{Tensor Contraction and the Frobenius Inner Product}
+% --------------------------------------------------
+If $\mathcal{X},\mathcal{Y}\in\mathbb{R}^{I_1\times\cdots\times I_N}$ share the same shape,
+their \emph{Frobenius (inner) product} is
+\[
+  \langle\mathcal{X},\mathcal{Y}\rangle
+  =\sum_{i_1,\dots,i_N}x_{i_1,\dots,i_N}\,y_{i_1,\dots,i_N},
+\]
+yielding the \emph{Frobenius norm}
+$\|\mathcal{X}\|_F=\sqrt{\langle\mathcal{X},\mathcal{X}\rangle}$.
+
+\paragraph{Example.}
+$\displaystyle
+\langle\mathcal{X},\mathcal{X}\rangle
+=1^2+2^2+\dots+8^2
+=204,
+\quad
+\|\mathcal{X}\|_F=\sqrt{204}.
+$
+
+More general \emph{tensor contractions} sum over \emph{chosen} index pairs and
+encompass matrix multiplication, trace, and dot products as special cases.
+
+\subsubsection{Outer Product and Rank‑1 Tensors}
+% --------------------------------------------------
+For vectors
+$\mathbf{a}^{(1)}\!\in\!\mathbb{R}^{I_1},\dots,
+ \mathbf{a}^{(N)}\!\in\!\mathbb{R}^{I_N}$ define the \emph{outer product}
+\[
+  \mathbf{a}^{(1)}\circ\cdots\circ\mathbf{a}^{(N)}
+  \;\in\;\mathbb{R}^{I_1\times\cdots\times I_N},
+  \qquad
+  x_{i_1,\dots,i_N}=a^{(1)}_{i_1}\!\cdots a^{(N)}_{i_N}.
+\]
+Such a tensor has (CP) \emph{rank 1}.
+
+\subsubsection{Tensor Rank and CP Decomposition}
+% --------------------------------------------------
+The \textbf{rank} of $\mathcal{X}$ is the minimal $R$ so that
+\[
+  \mathcal{X}
+  =\sum_{r=1}^R
+   \mathbf{a}^{(1)}_r\circ\mathbf{a}^{(2)}_r\circ\cdots\circ\mathbf{a}^{(N)}_r
+  \quad(\text{CANDECOMP/PARAFAC}).
+\]
+Unlike matrices, tensor rank is \emph{NP‑hard} to compute and may exceed \(\min I_n\).
+
+\paragraph{Example sketch.}
+For the running $\mathcal{X}$ one finds $R=2$ with
+suitable component vectors (exercise).
+
+\subsubsection{Tucker Decomposition and HOSVD}
+Tucker writes a tensor as a (usually small) \emph{core} multiplied along each mode:
+\[
+  \mathcal{X}
+  =\mathcal{G}\times_{1}U^{(1)}\times_{2}U^{(2)}\times_{3}\!U^{(3)}.
+\]
+Choosing $U^{(n)}$ orthogonal and $\mathcal{G}$ all‑orthogonal
+gives the \textbf{Higher‑Order SVD (HOSVD)}.
+Tucker separates \emph{inter‑mode} (core) from
+\emph{intra‑mode} (factor) interactions—an analogue of the matrix SVD.
+
+\subsubsection{Kronecker and Khatri–Rao Products}
+% --------------------------------------------------
+For matrices $A\in\mathbb{R}^{I\times J}$, $B\in\mathbb{R}^{K\times L}$:
+\[
+A\otimes B
+=\begin{pmatrix}
+a_{11}B & \cdots & a_{1J}B\\
+\vdots  & \ddots & \vdots \\
+a_{I1}B & \cdots & a_{IJ}B
+\end{pmatrix},\;
+\text{size }IK\times JL.
+\]
+The \textbf{Khatri–Rao} product
+$A\odot B$ keeps matching columns:
+$(A\odot B)_{:,j}=A_{:,j}\otimes B_{:,j}$.
+These appear in vectorized tensor equations, e.g.\
+$\operatorname{vec}\bigl(\mathcal{X}\times_3U^{(3)}\bigr)=
+(U^{(3)}\otimes I_{I_2})\,\operatorname{vec}(X_{(3)})$.
+
+
+\subsection{Applications in Machine Learning and Data Science}
+\begin{itemize}
+\item \textbf{Deep‑learning back‑ends.}
+  Frameworks like PyTorch treat
+  \verb|torch.Tensor| as the primary data object; convolutional
+  feature maps are 4‑D tensors $(N\!\times\!C\!\times\!H\!\times\!W)$.
+\item \textbf{Recommender systems.}
+  User–item–time data $\Rightarrow$ CP or Tucker compression
+  for temporal recommendation.
+\item \textbf{Graph representation learning.}
+  Multi‑relational graphs (subject, relation, object)
+  encode as 3‑way tensors; factorization yields
+  TransE, DistMult, RESCAL, …
+\item \textbf{Computer vision.}
+  Color videos are 4‑D tensors (height, width, channel, frame);
+  low‑rank approximations reduce memory in video codecs.
+\item \textbf{Scientific computing.}
+  Quantum many‑body states (tensor‑network methods),
+  uncertainty quantification with polynomial‑chaos tensors,
+  and solution operators for high‑dimensional PDEs.
+\end{itemize}
+
+\bigskip
+\noindent
+With these ingredients the tensor chapter now mirrors the structure,
+notation, and example‑driven approach of the vector chapter.  Happy compiling!

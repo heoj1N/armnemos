@@ -1,0 +1,127 @@
+\section*{Cheatsheet}
+\begin{itemize}
+  \item Vectors are typically denoted by lowercase bold letters, e.g.\ \(\mathbf{x} \in \mathbb{R}^n\).
+  \item Matrices are denoted by uppercase letters, e.g.\ \(A \in \mathbb{R}^{m \times n}\).
+  \item \(x_i\) denotes the \(i\)-th component of \(\mathbf{x}\).
+  \item \(A_{ij}\) denotes the \((i,j)\)-th entry of \(A\).
+  \item \(\|\mathbf{x}\|\) denotes a norm (often the Euclidean norm unless otherwise specified).
+  \item \(\mathbf{x}^\top\) denotes the transpose of vector \(\mathbf{x}\).
+\end{itemize}
+
+\subsection{Basic Vector/Matrix Products}
+\begin{align*}
+\mathbf{x}^\top \mathbf{y} 
+&= \sum_{i} x_i y_i 
+&& \text{(Dot product of two vectors in } \mathbb{R}^n \text{.)}\\[6pt]
+(AB)_{ij} 
+&= \sum_{k} A_{ik} B_{kj} 
+&& \text{(Matrix multiplication.)}\\[6pt]
+(A\mathbf{x})_i 
+&= \sum_{j} A_{ij} x_j
+&& \text{(Matrix-vector multiplication.)}\\[6pt]
+(\mathbf{x}^\top A)_j
+&= \sum_{i} x_i A_{ij}
+&& \text{(Vector-matrix multiplication, row-view.)}\\[6pt]
+(A\mathbf{x})^\top 
+&= \mathbf{x}^\top A^\top
+&& \text{(Transpose rule.)}
+\end{align*}
+
+\subsection{Quadratic Forms}
+A quadratic form in \(\mathbf{x}\) w.r.t.\ a matrix \(M\) is \(\mathbf{x}^\top M \mathbf{x}\). This expands to
+\[
+\mathbf{x}^\top M \mathbf{x} 
+= \sum_{i} \sum_{j} x_i\, M_{ij}\, x_j,
+\]
+and is a scalar if \(M\) is \(n \times n\). 
+
+\subsection*{Examples:}
+\begin{itemize}
+  \item If \(M = I\) (the identity), then \(\mathbf{x}^\top I \mathbf{x} = \mathbf{x}^\top \mathbf{x} = \|\mathbf{x}\|_2^2.\)
+  \item For any matrix \(A\), \(\|A\mathbf{x}\|_2^2 = (A\mathbf{x})^\top (A\mathbf{x}) = \mathbf{x}^\top A^\top A \mathbf{x}.\)
+\end{itemize}
+
+\subsection{Affine Functions and Expansions}
+Consider the function
+\[
+f(\mathbf{x}) 
+= \tfrac{1}{2}\,\mathbf{x}^\top A \mathbf{x} \;+\; \mathbf{b}^\top \mathbf{x} \;+\; c,
+\]
+where \(A\) is an \(n \times n\) matrix (often assumed symmetric in many contexts), \(\mathbf{b} \in \mathbb{R}^n\), 
+and \(c\) is a scalar. We can expand it component-wise:
+\[
+f(\mathbf{x}) 
+= \tfrac{1}{2} \sum_{i}\sum_{j} x_i A_{ij} x_j \;+\; \sum_{i} b_i x_i \;+\; c.
+\]
+
+\subsection{Matrix/Vector Identities and Tricks}
+
+\subsection*{Transpose Properties}
+\begin{align*}
+(A^\top)^\top &= A, \\
+(A + B)^\top &= A^\top + B^\top, \\
+(AB)^\top &= B^\top A^\top, \\
+\mathbf{x}^\top (A \mathbf{y}) &= (A^\top \mathbf{x})^\top \mathbf{y}.
+\end{align*}
+
+\subsection*{Invertibility}
+\begin{itemize}
+  \item A matrix \(A\) is invertible (nonsingular) if \(\det(A) \neq 0\).
+  \item \((A^{-1})^\top = (A^\top)^{-1}\).
+  \item If \(A\) is orthogonal (i.e.\ \(A^\top A = I\)), then \(A^{-1} = A^\top\).
+\end{itemize}
+
+\subsection*{Determinant Properties}
+\begin{align*}
+\det(AB) &= \det(A)\,\det(B), \\
+\det(A^\top) &= \det(A), \\
+\det(cA) &= c^n \det(A) \quad \text{(for an }n \times n\text{ matrix).}
+\end{align*}
+
+\subsection*{Rank and Projections}
+\begin{itemize}
+  \item The rank of \(A\) is the dimension of the column space of \(A\).
+  \item Orthogonal projection matrix onto a subspace \(U\) spanned by columns of \(A\):
+        \[
+          P = A(A^\top A)^{-1}A^\top,
+        \]
+        provided \(A\) has full column rank.
+\end{itemize}
+
+\subsection{Norms and Inner Products}
+\begin{itemize}
+  \item \(\|\mathbf{x}\|_2 = \sqrt{\mathbf{x}^\top \mathbf{x}}\).
+  \item \(\|A\|_F = \sqrt{\sum_{i,j} A_{ij}^2} = \sqrt{\mathrm{trace}(A^\top A)}\) (Frobenius norm).
+  \item \(\|\mathbf{x}\|_1 = \sum_{i} |x_i|\).  
+  \item Cauchy-Schwarz: \(\lvert \mathbf{x}^\top \mathbf{y}\rvert \le \|\mathbf{x}\|_2 \|\mathbf{y}\|_2.\)
+\end{itemize}
+
+\subsection{Eigenvalue Decomposition and SVD (Selected Points)}
+\begin{itemize}
+  \item \(\textbf{Eigenvalue Decomposition}\): If \(A \in \mathbb{R}^{n \times n}\) is diagonalizable, then 
+        \[
+          A = Q \Lambda Q^{-1},
+        \]
+        where \(\Lambda\) is diagonal of eigenvalues and columns of \(Q\) are eigenvectors.
+  \item \(\textbf{Spectral Theorem}\): If \(A\) is real symmetric, 
+        \[
+          A = U \Lambda U^\top,
+        \]
+        where \(U\) is orthogonal (\(U^\top U=I\)) and \(\Lambda\) is diagonal of real eigenvalues.
+  \item \(\textbf{SVD}\): For any \(A \in \mathbb{R}^{m \times n}\),
+        \[
+          A = U\,\Sigma\,V^\top,
+        \]
+        where \(U \in \mathbb{R}^{m \times m}\) and \(V \in \mathbb{R}^{n \times n}\) are orthogonal, and 
+        \(\Sigma\) is diagonal (padded with zeros if needed) of singular values \(\sigma_1 \ge \sigma_2 \ge \dots\).
+\end{itemize}
+
+\subsection{Matrix Calculus (Selected Formulas)}
+\begin{align*}
+\frac{\partial}{\partial \mathbf{x}} \bigl(\mathbf{b}^\top \mathbf{x}\bigr) &= \mathbf{b}, \\
+\frac{\partial}{\partial \mathbf{x}} \bigl(\mathbf{x}^\top A \mathbf{x}\bigr) &= (A + A^\top)\mathbf{x} 
+\quad \text{(if $A$ is symmetric, this simplifies to $2A\mathbf{x}$)},\\
+\frac{\partial}{\partial \mathbf{x}} \|\mathbf{x}\|_2^2 &= 2\mathbf{x}, \\
+\frac{\partial}{\partial \mathbf{x}} (\mathbf{x}^\top \mathbf{x}) &= 2\mathbf{x}.
+\end{align*}
+

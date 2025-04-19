@@ -1,0 +1,150 @@
+\section{Practical Examples in Machine Learning}
+
+In this section, we build upon the linear algebra operations and reordering properties 
+to highlight more sophisticated applications in modern Machine Learning. 
+The focus is on using matrix and tensor operations efficiently and in novel ways to 
+solve complex predictive tasks.
+
+\subsection{Low-Rank Factorization for Parameter Compression}
+For a large weight matrix $W \in \mathbb{R}^{m \times n}$ in a neural network, 
+one can approximate it via SVD truncation:
+\[
+W \approx U \Sigma V^\top,
+\]
+where $\Sigma$ is kept only for the top $r$ singular values, 
+leading to a rank-$r$ factorization with fewer parameters.
+
+\subsection{Kronecker-Factored Approximate Curvature (K-FAC)}
+In second-order optimization for deep learning, 
+one approximates the Fisher information matrix by a Kronecker product of smaller matrices:
+\[
+F \approx A \otimes B.
+\]
+Then inverting $F$ is simpler because $(A \otimes B)^{-1} = A^{-1} \otimes B^{-1}$. 
+K-FAC can significantly speed up training.
+
+\subsection{Tensor Decompositions in Recommender Systems}
+For a 3rd-order tensor $\mathcal{X} \in \mathbb{R}^{U \times I \times T}$ 
+(user \(\times\) item \(\times\) time), 
+a CP (CANDECOMP/PARAFAC) decomposition might approximate:
+\[
+\mathcal{X} \approx \sum_{r=1}^R \mathbf{u}_r \circ \mathbf{i}_r \circ \mathbf{t}_r,
+\]
+where each $\mathbf{u}_r \in \mathbb{R}^U$, $\mathbf{i}_r \in \mathbb{R}^I$, 
+$\mathbf{t}_r \in \mathbb{R}^T$. Learning $\mathbf{u}_r$, $\mathbf{i}_r$, $\mathbf{t}_r$ 
+is then akin to factorizing multi-way data for predictions.
+
+\subsection{Matrix Reordering and Efficient Computation}
+Large-scale Machine Learning models often rely on high-dimensional matrix multiplications. 
+Strategic reordering (e.g., grouping operations via associativity) can improve computational 
+efficiency and memory usage:
+
+\begin{itemize}
+    \item \textbf{Batch Multiplication:} 
+          If we have a mini-batch of input vectors $\{\mathbf{x}_i\}$ and a weight matrix $W$, 
+          we can write the batched operation as
+          \[
+             (W \mathbf{X}) = W 
+             \begin{pmatrix}
+             | & | &  & | \\
+             \mathbf{x}_1 & \mathbf{x}_2 & \cdots & \mathbf{x}_b \\
+             | & | &  & |
+             \end{pmatrix},
+          \]
+          where $\mathbf{X}$ is an $n \times b$ matrix (each column is an input).  
+          Reordering via associativity (grouping multiplications for matrix--matrix multiplication) 
+          can yield faster GPU implementations than multiple separate vector--matrix multiplications.
+
+    \item \textbf{Transformer Blocks:} 
+          In self-attention mechanisms, we often compute $QK^\top$, where $Q$ and $K$ 
+          are query/key matrices of dimension $(\text{batch} \times \text{sequence length} \times d)$. 
+          Certain frameworks rearrange these tensors for GPU-friendliness, 
+          taking advantage of the fact that
+          \[
+          (Q K^\top)^\top = K Q^\top
+          \]
+          so if we need $(Q K^\top)^\top$ for some computation, we can store $K Q^\top$ directly, 
+          saving one transpose operation.
+\end{itemize}
+
+\subsection{Automating Gradient Computation via Matrix Calculus}
+Automatic differentiation (AD) tools rely heavily on the chain rule in matrix form. 
+The reordering rules are implicitly used to ensure that each gradient is computed in the 
+correct order:
+
+\begin{itemize}
+    \item \textbf{Parameter Updates in Networks:} 
+          If $\mathbf{h} = \sigma(W \mathbf{x} + \mathbf{b})$ is a hidden layer (with activation $\sigma$), 
+          then
+          \[
+            \frac{\partial \mathbf{h}}{\partial W} 
+            = \frac{\partial \sigma(\cdot)}{\partial (W \mathbf{x} + \mathbf{b})}
+              \otimes \mathbf{x}^\top,
+          \]
+          which arises from applying the chain rule and vectorizing $\mathbf{x}$. 
+          The final partial derivative is then rearranged by the AD system to match the shape 
+          of $W$ in memory.
+
+    \item \textbf{Second-Order Methods:} 
+          When using approximate second-order updates (e.g., K-FAC), we keep 
+          \[
+            (AB)^{-1} = B^{-1} A^{-1},
+          \]
+          in mind to more efficiently invert large Kronecker-factored matrices. 
+          This property drastically reduces computation compared to inverting the 
+          full Fisher information matrix directly.
+\end{itemize}
+
+\subsection{Advanced Tensor Operations in Deep Learning}
+Beyond matrix multiplication, higher-order tensors appear in various deep learning contexts:
+
+\begin{itemize}
+    \item \textbf{Convolution as a Matrix Multiplication:} 
+          A convolutional layer can be “unfolded” (or im2col-transformed) into a standard 
+          matrix multiplication $W \cdot \tilde{\mathbf{X}}$, 
+          where $\tilde{\mathbf{X}}$ is a matrix containing patches extracted from images. 
+          Modern libraries may reorder dimensions internally to speed up these operations 
+          and facilitate vectorization on GPUs.
+
+    \item \textbf{Attention Weights in Transformers:} 
+          The 3D tensor for multi-head attention can be reordered via $(\text{batch}, \text{heads}, \text{seq}, d)$ 
+          or $(\text{batch}, \text{seq}, \text{heads}, d)$, etc. 
+          Reordering ensures that attention weight calculations (e.g.\ $QK^\top$ and subsequent 
+          softmax) are computed efficiently and remain memory-coalesced.
+
+    \item \textbf{Tensor Factorizations in Multi-Modal Learning:} 
+          Extending beyond matrices, if a dataset has multiple modalities (e.g.\ image, text, and audio), 
+          each sample can be viewed as a higher-order tensor. 
+          Operations like \emph{Khatri--Rao} or \emph{Kronecker} products may be used 
+          to integrate or “merge” these modalities. 
+          The reordering properties become crucial to avoid repeated overhead 
+          in factorized multi-modal architectures.
+    \item \textbf{Benchmark Reorderings:} 
+          Even though $(AB)C = A(BC)$, different GPU libraries might run faster with a particular parenthesization. 
+          When matrices are large, profiling the order of multiplication is often worthwhile.
+
+    \item \textbf{Keep Track of Batch Dimensions:} 
+          In many deep learning frameworks, the first dimension is the batch size. 
+          Be mindful of whether the library is optimized for $(\text{batch} \times \dots)$ or 
+          $(\dots \times \text{batch})$ ordering. 
+          Correct dimension reordering can yield surprising speed-ups in training and inference.
+
+    \item \textbf{Careful with Transposes:} 
+          Repeatedly transposing large matrices or tensors can degrade performance. 
+          Try to restructure your graph or code so that transposes happen minimally, 
+          possibly by applying known reorder rules $(AB)^\top = B^\top A^\top$ 
+          to reduce the total number of transpose operations.
+
+    \item \textbf{Matrix Inversions vs.\ Factorizations:} 
+          Inverting a matrix $A$ directly can be costly. 
+          Factorizations such as $QR$, $LU$, or Cholesky are usually more stable 
+          and faster for solving linear systems $A \mathbf{x} = \mathbf{b}$. 
+          This is particularly important in Bayesian ML (e.g.\ Gaussian Processes), 
+          where large covariance matrices must be dealt with frequently.
+\end{itemize}
+
+
+
+
+
+

@@ -1,0 +1,124 @@
+\documentclass{article}
+
+% --- Preamble from the provided header -------------------------------
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\usepackage[colorlinks=true, linkcolor=blue, urlcolor=blue, citecolor=blue]{hyperref}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{}
+\fancyhead[R]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0pt}
+% ---------------------------------------------------------------------
+
+\begin{document}
+
+% --------------------------------------------------
+%  Kinematics Chapter
+% --------------------------------------------------
+
+\tableofcontents
+\newpage
+
+\section{Kinematics in Mechanics}
+
+\subsection{Introduction}
+Kinematics is the branch of classical mechanics that describes the motion of points, bodies, and systems of bodies without considering the forces that cause the motion.  Unlike dynamics, which focuses on the causes of motion, kinematics deals solely with geometric aspects such as position, velocity, and acceleration.  It forms the foundation for understanding more complex mechanical phenomena.
+
+\subsection{Fundamental Quantities}
+
+\paragraph{Displacement (\(\vec{\mathbf{d}}\)).} The change in position of a particle:
+\begin{equation}
+\vec{\mathbf{d}} = \vec{\mathbf{r}}_{\!f} - \vec{\mathbf{r}}_{\!i}.
+\end{equation}
+
+\paragraph{Velocity (\(\vec{\mathbf{v}}\)).} The time‑rate of change of position:
+\begin{equation}
+\vec{\mathbf{v}} = \frac{d\vec{\mathbf{r}}}{dt}.
+\end{equation}
+Average velocity over a time interval \(\Delta t\) is
+\begin{equation}
+\bar{\vec{\mathbf{v}}}=\frac{\Delta\vec{\mathbf{r}}}{\Delta t}.
+\end{equation}
+
+\paragraph{Acceleration (\(\vec{\mathbf{a}}\)).} The time‑rate of change of velocity:
+\begin{equation}
+\vec{\mathbf{a}} = \frac{d\vec{\mathbf{v}}}{dt} = \frac{d^{2}\vec{\mathbf{r}}}{dt^{2}}.
+\end{equation}
+
+\subsection{Linear Motion with Constant Acceleration}
+For motion along a straight line with constant acceleration \(a\), the following \textit{kinematic equations} hold:
+\begin{align}
+ v &= v_{0} + a t, \\
+ x &= x_{0} + v_{0} t + \tfrac12 a t^{2}, \\
+ v^{2} &= v_{0}^{2} + 2a\,(x - x_{0}).
+ \label{eq:1d-const-acc}
+\end{align}
+Here \(x\) is displacement, \(v\) velocity at time \(t\), and subscript 0 denotes initial values.
+
+\subsection{Projectile Motion}
+Assuming a uniform gravitational field (acceleration \(g\)) and negligible air resistance, projectile motion can be decomposed into horizontal and vertical components:
+\begin{align}
+ x(t) &= v_{0}\cos\theta \, t, \\
+ y(t) &= v_{0}\sin\theta \, t - \tfrac12 g t^{2}.
+ \label{eq:projectile}
+\end{align}
+The range \(R\), time‑of‑flight \(T\), and maximum height \(H\) are
+\begin{align}
+ T &= \frac{2v_{0}\sin\theta}{g}, & R &= \frac{v_{0}^{2}\sin(2\theta)}{g}, & H &= \frac{v_{0}^{2}\sin^{2}\theta}{2g}.
+\end{align}
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.6\textwidth]{projectile.pdf}
+  \caption{Trajectory of a projectile launched with speed \(v_{0}\) at an angle \(\theta\) above the horizontal.}
+  \label{fig:projectile}
+\end{figure}
+
+\subsection{Uniform Circular Motion}
+For a particle moving at constant speed \(v\) in a circle of radius \(r\), its angular speed \(\omega\) and centripetal acceleration \(a_{c}\) are
+\begin{align}
+\omega &= \frac{v}{r}, & \quad a_{c} &= \frac{v^{2}}{r}=\omega^{2}r.
+\end{align}
+Although the speed is constant, the velocity vector continuously changes direction, resulting in a non‑zero acceleration toward the center of the circle.
+
+\subsection{Relative Motion}
+If two frames \(A\) and \(B\) translate relative to an inertial frame \(O\), the velocity of a point as seen from the two frames relates by
+\begin{equation}
+\vec{v}_{A/B}=\vec{v}_{A/O}-\vec{v}_{B/O}.
+\end{equation}
+This concept is essential in navigation, aerodynamics, and rotating‑frame analyses.
+
+\subsection{Worked Examples}
+\begin{longtable}{@{\extracolsep{0.1em}}p{0.06\textwidth}p{0.86\textwidth}@{}}
+\toprule
+\textbf{Ex.} & \textbf{Problem Statement and Solution Outline} \\
+\midrule
+1 & \textit{Stopping Distance}.\, A car traveling at 30~m\,s$^{-1}$ brakes with constant acceleration \(-5\,\text{m}\,\text{s}^{-2}$.  Find the stopping distance and time.\\
+  & \textbf{Solution.}  Use Eq.~(\ref{eq:1d-const-acc}): $v=0$, so $0=v_{0}^{2}+2a\Delta x \Rightarrow \Delta x = -v_{0}^{2}/(2a)=90\,$m; $t=(v-v_{0})/a=6\,$s. \\
+\addlinespace
+2 & \textit{Maximum Height}.\, A ball is thrown upward at 15~m\,s$^{-1}$.  Determine its maximum height and total time in the air.  (Take $g=9.81\,\text{m}\,\text{s}^{-2}$.)\\
+  & \textbf{Solution.}  Upward motion until $v=0$: $v^{2}=v_{0}^{2}-2gH \Rightarrow H=11.5\,$m; flight time $T=2v_{0}/g=3.06\,$s. \\
+\addlinespace
+3 & \textit{River Crossing}.\, A boat can move at 2~m\,s$^{-1}$ relative to still water.  The river flows east at 1.5~m\,s$^{-1}$.  If the boat heads due north from the south bank, find its actual velocity and landing point.\\
+  & \textbf{Solution.}  Relative velocity: $\vec{v}_{\text{boat/ground}}=\langle1.5,2\rangle$~m\,s$^{-1}$.  Resultant speed $\sqrt{(1.5)^{2}+2^{2}}=2.5\,$m\,s$^{-1}$ at $\arctan(1.5/2)=37^{\circ}$ east of north.
+\\
+\bottomrule
+\end{longtable}
+
+\subsection{Summary of Key Equations}
+\begin{itemize}
+  \item $\vec{\mathbf{v}} = \dfrac{d\vec{\mathbf{r}}}{dt}$,\quad $\vec{\mathbf{a}} = \dfrac{d\vec{\mathbf{v}}}{dt}$.
+  \item Constant‑acceleration linear motion: Eqs.~(\ref{eq:1d-const-acc}).
+  \item Projectile motion: Eqs.~(\ref{eq:projectile}).
+  \item Uniform circular motion: $a_{c}=v^{2}/r=\omega^{2}r$.
+\end{itemize}
+
+\end{document}

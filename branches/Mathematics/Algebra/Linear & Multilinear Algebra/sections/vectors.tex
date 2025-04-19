@@ -1,0 +1,1181 @@
+\section{Vectors}
+
+\noindent
+Let $\mathbf{u}$ and $\mathbf{v}$ be vectors in $\mathbb{R}^n$, and let $\alpha$ be a scalar 
+(real number). We write
+\[
+\mathbf{u} =
+\begin{pmatrix}
+u_1 \\
+u_2 \\
+\vdots \\
+u_n
+\end{pmatrix}, 
+\quad
+\mathbf{v} =
+\begin{pmatrix}
+v_1 \\
+v_2 \\
+\vdots \\
+v_n
+\end{pmatrix}.
+\]
+
+\noindent
+\textbf{Running Example (in $\mathbb{R}^2$):} 
+Throughout these subsections, we illustrate computations with the following vectors:
+\[
+\mathbf{u} = 
+\begin{pmatrix}
+2 \\
+3
+\end{pmatrix}, 
+\quad
+\mathbf{v} = 
+\begin{pmatrix}
+1 \\
+-1
+\end{pmatrix},
+\quad
+\text{and sometimes a third vector }
+\mathbf{w} =
+\begin{pmatrix}
+3 \\
+-2
+\end{pmatrix}.
+\]
+All arithmetic shown in the examples is specific to these choices.
+
+\subsection{Operations on Vectors}
+\subsubsection{Vector Addition and Scalar Multiplication}
+\[
+\mathbf{u} + \mathbf{v} =
+\begin{pmatrix}
+u_1 + v_1 \\
+u_2 + v_2 \\
+\vdots \\
+u_n + v_n
+\end{pmatrix},
+\quad
+\alpha \mathbf{u} =
+\begin{pmatrix}
+\alpha u_1 \\
+\alpha u_2 \\
+\vdots \\
+\alpha u_n
+\end{pmatrix}.
+\]
+\begin{itemize}
+\item \emph{Commutativity:} $\mathbf{u} + \mathbf{v} = \mathbf{v} + \mathbf{u}$.
+\item \emph{Associativity:} $(\mathbf{u} + \mathbf{v}) + \mathbf{w} = \mathbf{u} + (\mathbf{v} + \mathbf{w})$.
+\item \emph{Distributivity over vector addition:} $\alpha (\mathbf{u} + \mathbf{v}) = \alpha \mathbf{u} + \alpha \mathbf{v}$.
+\item \emph{Distributivity over scalar addition:} $(\alpha + \beta)\mathbf{u} = \alpha \mathbf{u} + \beta \mathbf{u}$.
+\end{itemize}
+
+\noindent
+\textbf{Example (in $\mathbb{R}^2$):}
+\[
+\mathbf{u} = \begin{pmatrix} 2 \\ 3 \end{pmatrix}, \quad
+\mathbf{v} = \begin{pmatrix} 1 \\ -1 \end{pmatrix}.
+\]
+Then
+\[
+\mathbf{u} + \mathbf{v} 
+= \begin{pmatrix} 2 + 1 \\ 3 + (-1) \end{pmatrix}
+= \begin{pmatrix} 3 \\ 2 \end{pmatrix}, 
+\quad
+2\mathbf{u} 
+= \begin{pmatrix} 4 \\ 6 \end{pmatrix}.
+\]
+
+\subsubsection{Dot (Inner) Product}
+\[
+\mathbf{u} \cdot \mathbf{v} \;=\; \mathbf{u}^\top \mathbf{v} \;=\; \sum_{i=1}^n u_i \, v_i.
+\]
+\begin{itemize}
+\item \emph{Commutative:} $\mathbf{u} \cdot \mathbf{v} = \mathbf{v} \cdot \mathbf{u}$.
+\item \emph{Distributive over addition:} $\mathbf{u} \cdot (\mathbf{v} + \mathbf{w}) 
+      = \mathbf{u} \cdot \mathbf{v} + \mathbf{u} \cdot \mathbf{w}$.
+\item \emph{Bilinear:} $(\alpha \mathbf{u}) \cdot \mathbf{v} = \alpha (\mathbf{u} \cdot \mathbf{v})$.
+\item \emph{Relation to vector length:} 
+      \[
+        \|\mathbf{u}\|^2 = \mathbf{u} \cdot \mathbf{u} \;=\; \sum_{i=1}^n u_i^2.
+      \]
+\end{itemize}
+
+\noindent
+\textbf{Example (in $\mathbb{R}^2$):}
+\[
+\mathbf{u} \cdot \mathbf{v}
+= \begin{pmatrix} 2 \\ 3 \end{pmatrix} 
+  \cdot 
+  \begin{pmatrix} 1 \\ -1 \end{pmatrix}
+= 2 \cdot 1 + 3 \cdot (-1)
+= 2 - 3
+= -1.
+\]
+Also, 
+\[
+\|\mathbf{u}\| 
+= \sqrt{\mathbf{u} \cdot \mathbf{u}}
+= \sqrt{2^2 + 3^2}
+= \sqrt{4 + 9}
+= \sqrt{13}.
+\]
+
+\subsubsection{Outer Product}
+\[
+\mathbf{u} \, \mathbf{v}^\top =
+\begin{pmatrix}
+u_1 \\
+u_2 \\
+\vdots \\
+u_n
+\end{pmatrix}
+\begin{pmatrix}
+v_1 & v_2 & \cdots & v_n
+\end{pmatrix}.
+\]
+\begin{itemize}
+\item The result is an $n \times n$ matrix.
+\item \emph{Non-commutative:} $\mathbf{u} \mathbf{v}^\top \neq \mathbf{v}^\top \mathbf{u}$ in general 
+      (the latter is a $1 \times 1$ matrix, i.e.\ a scalar).
+\end{itemize}
+
+\noindent
+\textbf{Example (in $\mathbb{R}^2$):}
+\[
+\mathbf{u} = \begin{pmatrix} 2 \\ 3 \end{pmatrix}, 
+\quad
+\mathbf{v} = \begin{pmatrix} 1 \\ -1 \end{pmatrix}.
+\]
+Then
+\[
+\mathbf{u}\mathbf{v}^\top 
+= 
+\begin{pmatrix} 2 \\ 3 \end{pmatrix}
+\begin{pmatrix} 1 & -1 \end{pmatrix}
+= 
+\begin{pmatrix}
+2 \cdot 1 & 2 \cdot (-1) \\
+3 \cdot 1 & 3 \cdot (-1)
+\end{pmatrix}
+= 
+\begin{pmatrix}
+2 & -2 \\
+3 & -3
+\end{pmatrix}.
+\]
+
+\subsubsection{Cross Product}
+The \emph{cross product} is a binary operation defined for vectors in three-dimensional space:
+\[
+\times : \mathbb{R}^3 \times \mathbb{R}^3 \to \mathbb{R}^3,
+\]
+which takes two vectors $\mathbf{a}, \mathbf{b} \in \mathbb{R}^3$ and returns a new vector $\mathbf{a} \times \mathbf{b}$ 
+that is orthogonal to both $\mathbf{a}$ and $\mathbf{b}$.
+\[
+\mathbf{a} \times \mathbf{b} 
+\;=\; 
+\begin{vmatrix}
+\mathbf{e}_1 & \mathbf{e}_2 & \mathbf{e}_3 \\
+a_1 & a_2 & a_3 \\
+b_1 & b_2 & b_3 
+\end{vmatrix}
+\;=\;
+\begin{pmatrix}
+a_2 b_3 - a_3 b_2 \\
+a_3 b_1 - a_1 b_3 \\
+a_1 b_2 - a_2 b_1
+\end{pmatrix},
+\]
+where $\mathbf{e}_1, \mathbf{e}_2, \mathbf{e}_3$ are the standard basis vectors in $\mathbb{R}^3$, 
+and
+\[
+\mathbf{a} 
+= \begin{pmatrix} a_1 \\ a_2 \\ a_3 \end{pmatrix},
+\quad
+\mathbf{b} 
+= \begin{pmatrix} b_1 \\ b_2 \\ b_3 \end{pmatrix}.
+\]
+
+\begin{itemize}
+\item \textbf{Orthogonality:} 
+  $\mathbf{a} \times \mathbf{b}$ is always \emph{orthogonal} to both $\mathbf{a}$ \emph{and} $\mathbf{b}$. 
+  Formally,
+  \[
+    (\mathbf{a} \times \mathbf{b}) \cdot \mathbf{a} \;=\; 0, 
+    \quad
+    (\mathbf{a} \times \mathbf{b}) \cdot \mathbf{b} \;=\; 0.
+  \]
+
+\item \textbf{Magnitude:} 
+  The magnitude of $\mathbf{a} \times \mathbf{b}$ is given by
+  \[
+    \|\mathbf{a} \times \mathbf{b}\| 
+    \;=\; \|\mathbf{a}\|\,\|\mathbf{b}\|\,\sin(\theta),
+  \]
+  where $\theta$ is the angle between $\mathbf{a}$ and $\mathbf{b}$ (cf. Section on \emph{Angle Between Vectors}). 
+  Thus, $\|\mathbf{a} \times \mathbf{b}\|$ equals the \emph{area} of the parallelogram 
+  spanned by $\mathbf{a}$ and $\mathbf{b}$.
+
+\item \textbf{Direction (Right-hand rule):} 
+  The direction of $\mathbf{a} \times \mathbf{b}$ follows the \emph{right-hand rule}: 
+  if you point the index finger of your right hand along $\mathbf{a}$ 
+  and your middle finger along $\mathbf{b}$, your thumb points in the direction 
+  of $\mathbf{a} \times \mathbf{b}$. Equivalently, 
+  \[
+    \mathbf{a} \times \mathbf{b} = -\,(\mathbf{b} \times \mathbf{a}).
+  \]
+
+\item \textbf{Anticommutativity:}
+  \[
+    \mathbf{a} \times \mathbf{b} 
+    \;=\; -\,(\mathbf{b} \times \mathbf{a}),
+    \quad
+    \mathbf{a} \times \mathbf{a} = \mathbf{0}.
+  \]
+
+\item \textbf{Distributivity over addition:}
+  \[
+    \mathbf{a} \times (\mathbf{b} + \mathbf{c}) 
+    \;=\; \mathbf{a} \times \mathbf{b} \;+\; \mathbf{a} \times \mathbf{c}.
+  \]
+
+\item \textbf{Scalar multiplication:}
+  \[
+    (\alpha \mathbf{a}) \times \mathbf{b}
+    \;=\; \alpha(\mathbf{a} \times \mathbf{b}),
+    \quad
+    \mathbf{a} \times (\beta \mathbf{b})
+    \;=\; \beta(\mathbf{a} \times \mathbf{b}).
+  \]
+\end{itemize}
+
+\subsubsection*{Example in \texorpdfstring{$\mathbb{R}^3$}{R³}}
+\noindent
+Suppose
+\[
+\mathbf{a} 
+= \begin{pmatrix} 1 \\ 2 \\ 3 \end{pmatrix}, 
+\quad
+\mathbf{b} 
+= \begin{pmatrix} 2 \\ 1 \\ 4 \end{pmatrix}.
+\]
+Then
+\[
+\mathbf{a} \times \mathbf{b}
+= \begin{pmatrix}
+  (2)(4) - (3)(1) \\
+  (3)(2) - (1)(4) \\
+  (1)(1) - (2)(2)
+\end{pmatrix}
+= \begin{pmatrix}
+  8 - 3 \\
+  6 - 4 \\
+  1 - 4
+\end{pmatrix}
+= \begin{pmatrix} 5 \\ 2 \\ -3 \end{pmatrix}.
+\]
+Indeed, 
+\[
+(\mathbf{a} \times \mathbf{b}) \cdot \mathbf{a}
+= 5\cdot 1 + 2\cdot 2 + (-3)\cdot 3 
+= 5 + 4 - 9 
+= 0,
+\]
+confirming orthogonality with $\mathbf{a}$, 
+and similarly one checks $(\mathbf{a} \times \mathbf{b}) \cdot \mathbf{b}=0$.
+
+\subsubsection*{Scalar Triple Product and Volume Interpretation}
+
+\noindent
+For vectors $\mathbf{a}, \mathbf{b}, \mathbf{c} \in \mathbb{R}^3$, the \emph{scalar triple product} 
+is defined as
+\[
+  \mathbf{a} \cdot (\mathbf{b} \times \mathbf{c}),
+\]
+and it gives the (signed) volume of the parallelepiped determined by the three vectors. 
+Hence,
+\[
+  \bigl|\mathbf{a} \cdot (\mathbf{b} \times \mathbf{c})\bigr|
+\]
+represents the volume of that parallelepiped. 
+
+\begin{itemize}
+\item \textbf{Cyclic permutations:} 
+  \[
+    \mathbf{a} \cdot (\mathbf{b} \times \mathbf{c})
+    \;=\; \mathbf{b} \cdot (\mathbf{c} \times \mathbf{a})
+    \;=\; \mathbf{c} \cdot (\mathbf{a} \times \mathbf{b}).
+  \]
+  The scalar triple product is invariant under any cyclic permutation of \(\mathbf{a}\), \(\mathbf{b}\), \(\mathbf{c}\).
+\item \textbf{Geometric interpretation:} 
+  \(\|\mathbf{b} \times \mathbf{c}\|\) is the area of the parallelogram spanned by \(\mathbf{b}\) and \(\mathbf{c}\), 
+  and then the dot product with \(\mathbf{a}\) effectively multiplies this area by the perpendicular 
+  height from \(\mathbf{a}\). The sign indicates orientation (via the right-hand rule).
+\end{itemize}
+
+\noindent
+In summary, the cross product is a key operation in 3D vector calculus and geometry, 
+giving a new vector orthogonal to two given vectors. 
+It does \emph{not} generalize in a straightforward way to higher-dimensional spaces 
+(the notion of a \emph{wedge product} does generalize, but behaves differently). 
+However, in $\mathbb{R}^3$, the cross product is crucial for many geometric and physical applications 
+(e.g.\ torque, angular momentum, electromagnetic fields).
+\subsubsection{Element‑wise (Hadamard) Product}
+For $\mathbf{u},\mathbf{v}\in\mathbb{R}^n$ their \emph{Hadamard product}  
+is the vector obtained by multiplying matching components:
+\[
+  \mathbf{u}\odot\mathbf{v}
+  \;=\;
+  \begin{pmatrix}
+    u_1v_1 \\ u_2v_2 \\ \vdots \\ u_nv_n
+  \end{pmatrix}.
+\]
+
+\begin{itemize}
+  \item \textbf{Commutative \& associative} (because real multiplication is).
+  \item \textbf{Distributes} over component‑wise addition:
+        $\mathbf{u}\odot(\mathbf{v}+\mathbf{w})=\mathbf{u}\odot\mathbf{v}+\mathbf{u}\odot\mathbf{w}$.
+  \item Shows up in statistics (variance of element‑wise products),  
+        machine learning (attention mechanisms), and digital signal processing.
+\end{itemize}
+
+\paragraph{Example (in $\mathbb{R}^2$).}
+\[
+\begin{pmatrix}2\\3\end{pmatrix}\odot
+\begin{pmatrix}1\\-1\end{pmatrix}
+=
+\begin{pmatrix}2\cdot1\\3\cdot(-1)\end{pmatrix}
+=
+\begin{pmatrix}2\\-3\end{pmatrix}.
+\]
+
+\subsubsection{Kronecker (Tensor) Product of Vectors}
+For $\mathbf{u}\in\mathbb{R}^{m}$ and $\mathbf{v}\in\mathbb{R}^{n}$,
+their \emph{Kronecker product} is the $mn$‑dimensional vector
+
+\[
+  \mathbf{u}\otimes\mathbf{v}
+  \;=\;
+  \begin{pmatrix}
+    u_1\,\mathbf{v} \\[2pt]
+    u_2\,\mathbf{v} \\[1pt]
+    \vdots \\[1pt]
+    u_m\,\mathbf{v}
+  \end{pmatrix}
+  =
+  \begin{pmatrix}
+    u_1 v_1 \\ u_1 v_2 \\ \cdots \\ u_1 v_n \\
+    u_2 v_1 \\ u_2 v_2 \\ \cdots \\ u_2 v_n \\
+    \vdots \\  
+    u_m v_1 \\ u_m v_2 \\ \cdots \\ u_m v_n
+  \end{pmatrix}.
+\]
+
+\begin{itemize}
+  \item Widely used in signal processing, quantum computing, and
+        to express the covariance of $\operatorname{vec}(X)$ for random matrices~$X$.
+  \item Not commutative but satisfies a \emph{mixed‑product} property  
+        with ordinary matrix multiplication:  $(A\otimes B)(C\otimes D)=(AC)\otimes(BD)$
+        whenever the products make sense.
+\end{itemize}
+
+\paragraph{Example ($m=n=2$).}
+\[
+\begin{pmatrix}2\\3\end{pmatrix}\!\otimes\!\begin{pmatrix}1\\-1\end{pmatrix}
+=
+\begin{pmatrix}
+  2\cdot1 \\ 2\cdot(-1) \\ 3\cdot1 \\ 3\cdot(-1)
+\end{pmatrix}
+=
+\begin{pmatrix}
+  2 \\ -2 \\ 3 \\ -3
+\end{pmatrix}.
+\]
+
+\subsubsection{Vector Triple Product (Lagrange Identity)}
+For $\mathbf{a},\mathbf{b},\mathbf{c}\in\mathbb{R}^3$ the \emph{vector triple product}
+expands as
+\[
+  \mathbf{a}\times(\mathbf{b}\times\mathbf{c})
+  \;=\;
+  (\mathbf{a}\cdot\mathbf{c})\,\mathbf{b}
+  \;-\;
+  (\mathbf{a}\cdot\mathbf{b})\,\mathbf{c}.
+\]
+Swapping the first two vectors flips the sign:
+\[
+  (\mathbf{a}\times\mathbf{b})\times\mathbf{c}
+  \;=\;
+  (\mathbf{a}\cdot\mathbf{c})\,\mathbf{b}
+  \;-\;
+  (\mathbf{b}\cdot\mathbf{c})\,\mathbf{a}.
+\]
+
+\paragraph{Geometric use‑case.}  
+The formula resolves the component of $\mathbf{c}$ lying in the plane
+spanned by $\mathbf{a}$ and $\mathbf{b}$; it is also the basis
+for derivations of torque and magnetic forces in physics.
+
+\subsubsection{Vector Stack (Concatenation)}
+Given two column vectors 
+$\mathbf{u}\in\mathbb{R}^{m}$ and $\mathbf{v}\in\mathbb{R}^{n}$, the \emph{vertical stack}
+(or \emph{concatenation}) is the $(m+n)$‑dimensional vector  
+\[
+  \operatorname{stack}\!\bigl(\mathbf{u},\mathbf{v}\bigr)
+  \;=\;
+  \begin{pmatrix}
+      \mathbf{u} \\[4pt] \mathbf{v}
+  \end{pmatrix}
+  =
+  \begin{pmatrix}
+      u_1 \\ \vdots \\ u_m \\ v_1 \\ \vdots \\ v_n
+  \end{pmatrix}.
+\]
+
+\noindent
+If both vectors are rows, the same notation yields a longer row.  
+For horizontal concatenation of columns one writes  
+$\bigl(\,\mathbf{u}^\top\!\mid\!\mathbf{v}^\top\bigr)$, which is a $1\times(m+n)$ row.
+
+\paragraph{Example (in $\mathbb{R}^{2+2}$).}
+\[
+\mathbf{u}=\begin{pmatrix}2\\3\end{pmatrix},\;
+\mathbf{v}=\begin{pmatrix}1\\-1\end{pmatrix}
+\quad\Longrightarrow\quad
+\operatorname{stack}(\mathbf{u},\mathbf{v})=
+\begin{pmatrix}2\\3\\1\\-1\end{pmatrix}.
+\]
+
+
+
+
+
+
+\subsection{Properties of Vectors}
+\subsubsection{Vector Spaces}
+
+A set $V$ is called a \textbf{vector space} (or \textbf{linear space}) over the field $\mathbb{R}$ if it is closed under:
+\begin{itemize}
+    \item \textbf{Vector addition:} $+ : V \times V \to V$
+    \item \textbf{Scalar multiplication:} $\cdot : \mathbb{R} \times V \to V$
+\end{itemize}
+That is, for all $\mathbf{v}_1, \mathbf{v}_2 \in V$ and all scalars $\alpha, \beta \in \mathbb{R}$, the combination $\alpha \mathbf{v}_1 + \beta \mathbf{v}_2 \in V$.
+
+\vspace{1em}
+\noindent
+With respect to addition, $V$ forms a \textit{commutative group}:
+\begin{itemize}
+    \item Associativity: $(\mathbf{u} + \mathbf{v}) + \mathbf{w} = \mathbf{u} + (\mathbf{v} + \mathbf{w})$
+    \item Commutativity: $\mathbf{u} + \mathbf{v} = \mathbf{v} + \mathbf{u}$
+    \item Existence of identity: $\exists \mathbf{0} \in V$ such that $\mathbf{u} + \mathbf{0} = \mathbf{u}$
+    \item Existence of inverses: For all $\mathbf{u} \in V$, $\exists -\mathbf{u} \in V$ such that $\mathbf{u} + (-\mathbf{u}) = \mathbf{0}$
+\end{itemize}
+
+\vspace{1em}
+\noindent
+Scalar multiplication must satisfy:
+\begin{itemize}
+    \item Compatibility: $\alpha(\beta \mathbf{u}) = (\alpha\beta) \mathbf{u}$
+    \item Identity: $1 \cdot \mathbf{u} = \mathbf{u}$
+    \item Distributivity over vector addition: $\alpha(\mathbf{u} + \mathbf{v}) = \alpha \mathbf{u} + \alpha \mathbf{v}$
+    \item Distributivity over scalar addition: $(\alpha + \beta)\mathbf{u} = \alpha \mathbf{u} + \beta \mathbf{u}$
+\end{itemize}
+
+\noindent
+\textbf{Example:} $\mathbb{R}^n$ is a vector space, and a typical vector is written as $\mathbf{v} = (x_1, \dots, x_n)^\top$.
+
+\vspace{1em}
+\noindent
+A subset $W \subseteq V$ is called a \textbf{subspace} if $0 \in W$ and $W$ is closed under both addition and scalar multiplication (i.e., $\forall \alpha \in \mathbb{R}, \mathbf{u}, \mathbf{v} \in W$, we have $\alpha \mathbf{u} + \mathbf{v} \in W$).
+
+
+
+
+\subsubsection{Vector Norms}
+
+A \emph{norm} on $\mathbb{R}^n$ is a function $\|\cdot\| : \mathbb{R}^n \to \mathbb{R}$ 
+that assigns a nonnegative real number to each vector, and satisfies the 
+following properties for all $\mathbf{u}, \mathbf{v} \in \mathbb{R}^n$ 
+and scalars $\alpha \in \mathbb{R}$:
+\begin{enumerate}
+\item \textbf{Non-negativity:} $\|\mathbf{u}\| \ge 0$, and $\|\mathbf{u}\| = 0$ if and only if $\mathbf{u} = \mathbf{0}$.
+\item \textbf{Homogeneity (absolute scalability):} $\|\alpha\,\mathbf{u}\| = |\alpha| \,\|\mathbf{u}\|$.
+\item \textbf{Triangle inequality:} $\|\mathbf{u} + \mathbf{v}\| \le \|\mathbf{u}\| + \|\mathbf{v}\|$.
+\end{enumerate}
+
+\subsubsection{Distances Induced by Norms}
+
+\noindent
+Given a norm $\|\cdot\|$ on $\mathbb{R}^n$, we can define a corresponding 
+\emph{distance function} (or \emph{metric}) $d$ by
+\[
+d(\mathbf{x}, \mathbf{y}) \;=\; \|\mathbf{x} - \mathbf{y}\|.
+\]
+
+This distance measures how ``far apart'' two points (vectors) $\mathbf{x}$ and $\mathbf{y}$ 
+are under the chosen norm. It satisfies the usual distance axioms:
+
+\begin{itemize}
+\item $d(\mathbf{x}, \mathbf{y}) \ge 0$, and $d(\mathbf{x}, \mathbf{y}) = 0$ if and only if $\mathbf{x} = \mathbf{y}$.
+\item $d(\mathbf{x}, \mathbf{y}) = d(\mathbf{y}, \mathbf{x})$ (symmetry).
+\item $d(\mathbf{x}, \mathbf{z}) \le d(\mathbf{x}, \mathbf{y}) + d(\mathbf{y}, \mathbf{z})$ (triangle inequality).
+\end{itemize}
+
+\paragraph{Examples of Norms and Distances}
+
+\begin{itemize}
+\item{\boldmath $L^1$ Norm (Manhattan / Taxicab Norm).}
+\[
+\|\mathbf{u}\|_1 \;=\; \sum_{i=1}^n |u_i|.
+\]
+Distance induced by \(\|\cdot\|_1\):
+\[
+d_1(\mathbf{x}, \mathbf{y}) 
+\;=\; \|\mathbf{x} - \mathbf{y}\|_1 
+\;=\; \sum_{i=1}^n |x_i - y_i|.
+\]
+This corresponds to traveling along coordinate axes (like navigating city blocks).
+
+\item{\boldmath $L^2$ Norm (Euclidean Norm).}
+\[
+\|\mathbf{u}\|_2 \;=\; \sqrt{\mathbf{u} \cdot \mathbf{u}} 
+\;=\; \sqrt{\sum_{i=1}^n u_i^2}.
+\]
+Distance induced by \(\|\cdot\|_2\):
+\[
+d_2(\mathbf{x}, \mathbf{y}) 
+\;=\; \|\mathbf{x} - \mathbf{y}\|_2 
+\;=\; \sqrt{\sum_{i=1}^n (x_i - y_i)^2}.
+\]
+This is the usual Euclidean distance.
+
+\item{\boldmath $L^p$ Norm (General $p$-Norm).}
+For $1 \le p < \infty$, the \emph{$p$-norm} is
+\[
+\|\mathbf{u}\|_p 
+\;=\; 
+\Bigl(\sum_{i=1}^n |u_i|^p \Bigr)^{\!\!1/p}.
+\]
+Distance induced by \(\|\cdot\|_p\):
+\[
+d_p(\mathbf{x}, \mathbf{y}) 
+\;=\; \|\mathbf{x} - \mathbf{y}\|_p 
+\;=\; 
+\Bigl(\sum_{i=1}^n |x_i - y_i|^p \Bigr)^{\!\!1/p}.
+\]
+Both $\|\cdot\|_1$ and $\|\cdot\|_2$ are special cases of this general form.
+
+\item{\boldmath $L^\infty$ Norm (Max Norm).}
+\[
+\|\mathbf{u}\|_\infty 
+\;=\; \max_{1 \le i \le n} |u_i|.
+\]
+Distance induced by \(\|\cdot\|_\infty\):
+\[
+d_\infty(\mathbf{x}, \mathbf{y}) 
+\;=\; \|\mathbf{x} - \mathbf{y}\|_\infty 
+\;=\; \max_{1 \le i \le n} |x_i - y_i|.
+\]
+Geometrically, this measures the \emph{largest} coordinate difference between $\mathbf{x}$ and $\mathbf{y}$.
+
+\end{itemize}
+
+
+
+
+
+\paragraph{Equivalence of Norms in Finite Dimensions}
+
+\noindent
+In $\mathbb{R}^n$, all of these norms (and indeed \emph{any} norms) are 
+\emph{equivalent} in the sense that if you pick any two norms $\|\cdot\|_a$ and $\|\cdot\|_b$, 
+there exist constants $c_1, c_2 > 0$ (depending on $n$ but not on the vector itself) such that
+\[
+  c_1 \|\mathbf{u}\|_a \;\le\; \|\mathbf{u}\|_b \;\le\; c_2 \|\mathbf{u}\|_a,
+\]
+for all $\mathbf{u} \in \mathbb{R}^n$. This means they induce the same notion of 
+\emph{topology} (i.e.\ the same idea of which points are ``close'' to which), 
+and there is no norm that fundamentally changes the notion of ``distance'' 
+in finite-dimensional spaces.
+
+\paragraph{Example in \(\mathbb{R}^2\) with \(\mathbf{u} = (2,3)\) and \(\mathbf{v}=(1,-1)\)}
+
+\begin{itemize}
+\item \(\|\mathbf{u}\|_1 = |2| + |3| = 5.\)
+\item \(\|\mathbf{u}\|_2 
+  = \sqrt{2^2 + 3^2} 
+  = \sqrt{13}.\)
+\item \(\|\mathbf{u}\|_\infty 
+  = \max\{\,|2|,\,|3|\} 
+  = 3.\)
+\end{itemize}
+
+\noindent
+\emph{Distances} between $\mathbf{u}$ and $\mathbf{v}$:
+\begin{align*}
+d_1(\mathbf{u}, \mathbf{v}) 
+&= \|\mathbf{u} - \mathbf{v}\|_1 
+ = |2-1| + |3 - (-1)| 
+ = 1 + 4 
+ = 5,\\[6pt]
+d_2(\mathbf{u}, \mathbf{v}) 
+&= \|\mathbf{u} - \mathbf{v}\|_2 
+ = \sqrt{(2-1)^2 + (3+1)^2} 
+ = \sqrt{1^2 + 4^2} 
+ = \sqrt{17},\\[6pt]
+d_\infty(\mathbf{u}, \mathbf{v})
+&= \|\mathbf{u} - \mathbf{v}\|_\infty 
+ = \max\{|2-1|,\,|3 - (-1)|\}
+ = \max\{1,4\}
+ = 4.
+\end{align*}
+All three metrics satisfy the distance axioms, but they measure ``distance'' in different ways.
+
+
+
+\subsubsection{Orthogonal and Orthonormal Vectors}
+\begin{itemize}
+\item Two vectors $\mathbf{u}$ and $\mathbf{v}$ in $\mathbb{R}^n$ are \emph{orthogonal} 
+      if $\mathbf{u} \cdot \mathbf{v} = 0$.
+\item A set of vectors $\{\mathbf{u}_1, \mathbf{u}_2, \dots, \mathbf{u}_k\}$ is 
+      \emph{orthogonal} if each pair of distinct vectors is orthogonal:
+      \[
+         \mathbf{u}_i \cdot \mathbf{u}_j = 0 \quad \text{for} \quad i \neq j.
+      \]
+\item A set of vectors is \emph{orthonormal} if it is orthogonal and each vector has norm $1$:
+      \[
+         \|\mathbf{u}_i\| = 1 \quad \text{for all } i, 
+         \quad \text{and} \quad
+         \mathbf{u}_i \cdot \mathbf{u}_j = 0 \quad (i \neq j).
+      \]
+\end{itemize}
+
+\noindent
+\textbf{Example (in $\mathbb{R}^2$):}
+Notice that 
+\[
+\mathbf{u} \cdot \mathbf{w}
+= (2)(3) + (3)(-2)
+= 6 - 6
+= 0,
+\]
+so $\mathbf{u}$ and $\mathbf{w}$ are orthogonal in $\mathbb{R}^2$. 
+Neither is a unit vector, though. We can normalize each to obtain an orthonormal pair:
+\[
+\widehat{\mathbf{u}} = \frac{1}{\sqrt{13}}\begin{pmatrix} 2 \\ 3 \end{pmatrix}, 
+\quad
+\widehat{\mathbf{w}} = \frac{1}{\sqrt{13}}\begin{pmatrix} 3 \\ -2 \end{pmatrix}.
+\]
+It is then straightforward to verify:
+\[
+\widehat{\mathbf{u}} \cdot \widehat{\mathbf{w}} = 0,
+\quad
+\|\widehat{\mathbf{u}}\|=1,
+\quad
+\|\widehat{\mathbf{w}}\|=1.
+\]
+
+\subsubsection{Angle Between Vectors}
+If $\mathbf{u}$ and $\mathbf{v}$ are nonzero vectors, the angle $\theta$ between them 
+is given by
+\[
+\mathbf{u} \cdot \mathbf{v} = \|\mathbf{u}\| \|\mathbf{v}\| \cos \theta,
+\]
+which implies
+\[
+\theta \;=\; \arccos\!\biggl(\frac{\mathbf{u} \cdot \mathbf{v}}{\|\mathbf{u}\|\|\mathbf{v}\|}\biggr).
+\]
+\begin{itemize}
+\item $\theta = 0$ when $\mathbf{u}$ and $\mathbf{v}$ point in the same direction.
+\item $\theta = \pi/2$ (i.e.\ $90^\circ$) when $\mathbf{u} \perp \mathbf{v}$ (orthogonal).
+\item $0 \le \theta \le \pi$ in $\mathbb{R}^n$.
+\end{itemize}
+
+\noindent
+\textbf{Example (in $\mathbb{R}^2$):}
+\[
+\mathbf{u} \cdot \mathbf{v} = -1,
+\quad
+\|\mathbf{u}\| = \sqrt{13},
+\quad
+\|\mathbf{v}\| = \sqrt{2}.
+\]
+Hence
+\[
+\theta 
+= \arccos\!\Bigl(\frac{-1}{\sqrt{13} \sqrt{2}}\Bigr)
+= \arccos\!\Bigl(\frac{-1}{\sqrt{26}}\Bigr).
+\]
+Numerically, $\theta$ lies between $90^\circ$ and $180^\circ$ since the dot product is negative.
+
+\subsubsection{Vector Projection}
+The \emph{projection} of a vector $\mathbf{u}$ onto a nonzero vector $\mathbf{v}$ is 
+defined as
+\[
+\text{proj}_{\mathbf{v}}(\mathbf{u}) \;=\; 
+\biggl(\frac{\mathbf{u} \cdot \mathbf{v}}{\mathbf{v} \cdot \mathbf{v}}\biggr)\mathbf{v}.
+\]
+\begin{itemize}
+\item \textbf{Geometric Interpretation:} 
+      $\text{proj}_{\mathbf{v}}(\mathbf{u})$ is the component of $\mathbf{u}$ 
+      in the direction of $\mathbf{v}$. In other words, it is the \emph{closest point} 
+      (in the sense of Euclidean distance) on the line spanned by $\mathbf{v}$ to $\mathbf{u}$.
+\item \textbf{If \(\mathbf{v}\) is a unit vector:} 
+      If $\mathbf{v}$ has length $1$, denoted $\widehat{\mathbf{v}}$, then
+      \[
+         \text{proj}_{\widehat{\mathbf{v}}}(\mathbf{u}) 
+         \;=\; (\mathbf{u} \cdot \widehat{\mathbf{v}})\,\widehat{\mathbf{v}}.
+      \]
+\item \textbf{Rejection:}
+      The \emph{rejection} of $\mathbf{u}$ from $\mathbf{v}$ (the component of $\mathbf{u}$ 
+      orthogonal to $\mathbf{v}$) is given by 
+      \[
+         \mathbf{u} - \text{proj}_{\mathbf{v}}(\mathbf{u}).
+      \]
+\end{itemize}
+
+\noindent
+\textbf{Example (in $\mathbb{R}^2$):}
+\[
+\mathbf{u} \cdot \mathbf{v} 
+= -1, 
+\quad
+\mathbf{v} \cdot \mathbf{v} 
+= 1^2 + (-1)^2 
+= 2.
+\]
+So
+\[
+\text{proj}_{\mathbf{v}}(\mathbf{u}) 
+= \Bigl(\frac{-1}{2}\Bigr) \mathbf{v}
+= \begin{pmatrix} -\tfrac{1}{2} \\ \tfrac{1}{2} \end{pmatrix}.
+\]
+Hence the rejection is
+\[
+\mathbf{u} - \text{proj}_{\mathbf{v}}(\mathbf{u})
+= \begin{pmatrix} 2 \\ 3 \end{pmatrix} 
+  - 
+  \begin{pmatrix} -\tfrac{1}{2} \\ \tfrac{1}{2} \end{pmatrix}
+= \begin{pmatrix} 2 + \tfrac{1}{2} \\ 3 - \tfrac{1}{2} \end{pmatrix}
+= \begin{pmatrix} \tfrac{5}{2} \\ \tfrac{5}{2} \end{pmatrix}.
+\]
+
+
+\subsubsection{Linear Independence, Span, and Basis}
+\begin{itemize}
+\item \textbf{Linear Independence:}
+      A set of vectors $\{\mathbf{u}_1, \dots, \mathbf{u}_k\}$ in $\mathbb{R}^n$ is said to be 
+      \emph{linearly independent} if the only solution to
+      \[
+         \alpha_1 \mathbf{u}_1 + \alpha_2 \mathbf{u}_2 + \cdots + \alpha_k \mathbf{u}_k 
+         = \mathbf{0}
+      \]
+      is $\alpha_1 = \alpha_2 = \cdots = \alpha_k = 0$. 
+      Equivalently, no vector in the set can be expressed as a linear combination of the others.
+\item \textbf{Span:}
+      The \emph{span} of $\{\mathbf{u}_1, \dots, \mathbf{u}_k\}$ is the set of all linear combinations
+      \[
+         \alpha_1 \mathbf{u}_1 + \cdots + \alpha_k \mathbf{u}_k,
+      \]
+      for all scalars $\alpha_1, \dots, \alpha_k$. The span represents all possible points 
+      you can reach by scaling and adding these vectors.
+\item \textbf{Basis:}
+      A set of vectors in $\mathbb{R}^n$ is called a \emph{basis} if it is linearly independent 
+      \emph{and} its span is the entire space $\mathbb{R}^n$. 
+      \begin{itemize}
+         \item The number of vectors in any basis of $\mathbb{R}^n$ is $n$, which is called 
+               the \emph{dimension} of $\mathbb{R}^n$.
+      \end{itemize}
+\item \textbf{Orthonormal Basis:}
+      If a set of $n$ linearly independent vectors in $\mathbb{R}^n$ is also orthonormal 
+      (i.e.\ each pair of distinct vectors is orthogonal, and each has norm $1$), 
+      then it forms an \emph{orthonormal basis} for $\mathbb{R}^n$. 
+      Such bases simplify many computations because dot products, norms, 
+      and projections have especially simple forms under orthonormal sets.
+\end{itemize}
+
+\noindent
+\textbf{Example (in $\mathbb{R}^2$):}
+\begin{itemize}
+\item \emph{Linear independence:} 
+      The vectors 
+      \(\mathbf{u} = \begin{pmatrix} 2 \\ 3 \end{pmatrix}\) 
+      and 
+      \(\mathbf{v} = \begin{pmatrix} 1 \\ -1 \end{pmatrix}\) 
+      are linearly independent because no scalar multiple of one can produce the other.
+\item \emph{Span:}
+      The span of \(\{\mathbf{u}, \mathbf{v}\}\) in \(\mathbb{R}^2\) is all of \(\mathbb{R}^2\) 
+      if \(\mathbf{u}\) and \(\mathbf{v}\) are not collinear. 
+      Indeed, any vector \(\mathbf{x} = (x_1, x_2)^\top \in \mathbb{R}^2\) can be written 
+      as a combination of \(\mathbf{u}\) and \(\mathbf{v}\) if their determinant 
+      (thinking of them as columns) is nonzero.
+\item \emph{Basis:} 
+      In \(\mathbb{R}^2\), any pair of linearly independent vectors forms a basis for \(\mathbb{R}^2\). 
+      Since \(\{\mathbf{u}, \mathbf{v}\}\) are independent, they form a basis of \(\mathbb{R}^2\).
+\item \emph{Orthonormal basis:}
+      The normalized vectors 
+      \(\widehat{\mathbf{u}}\) and \(\widehat{\mathbf{w}}\) above 
+      (where \(\mathbf{u}\perp \mathbf{w}\)) form an orthonormal set. 
+      If you had two such orthonormal, independent vectors in \(\mathbb{R}^2\), 
+      they would automatically form an orthonormal basis for \(\mathbb{R}^2\).
+\end{itemize}
+
+
+
+\subsection{Vector Bases}
+\subsubsection{Standard Basis}
+\noindent
+The \emph{standard basis} for $\mathbb{R}^n$ is the set of $n$ vectors 
+\[
+\mathbf{e}_1 = 
+\begin{pmatrix}
+1 \\
+0 \\
+\vdots \\
+0
+\end{pmatrix}, \quad
+\mathbf{e}_2 = 
+\begin{pmatrix}
+0 \\
+1 \\
+\vdots \\
+0
+\end{pmatrix}, 
+\quad \dots \quad,
+\mathbf{e}_n = 
+\begin{pmatrix}
+0 \\
+0 \\
+\vdots \\
+1
+\end{pmatrix}.
+\]
+Each $\mathbf{e}_i$ has a $1$ in the $i$-th coordinate and $0$ elsewhere. The collection 
+$\{\mathbf{e}_1,\mathbf{e}_2,\dots,\mathbf{e}_n\}$ has several important properties:
+
+\begin{itemize}
+\item \textbf{Any vector as a combination:} 
+      Any $\mathbf{u} \in \mathbb{R}^n$ can be written uniquely as
+      \[
+         \mathbf{u} 
+         \;=\; u_1 \mathbf{e}_1 + u_2 \mathbf{e}_2 + \cdots + u_n \mathbf{e}_n.
+      \]
+      In coordinate form, $\mathbf{u} = (u_1, u_2, \dots, u_n)^\top$. This reflects the fact 
+      that each $\mathbf{e}_i$ ``picks out'' the $i$-th coordinate of $\mathbf{u}$. 
+
+\item \textbf{Relationship to the identity matrix:}
+      If we place the vectors $\mathbf{e}_1, \dots, \mathbf{e}_n$ as the columns of an 
+      $n \times n$ matrix, we obtain the \emph{identity matrix} $I_n$:
+      \[
+        I_n \;=\; 
+        \begin{pmatrix}
+        | & | &        & | \\
+        \mathbf{e}_1 & \mathbf{e}_2 & \cdots & \mathbf{e}_n \\
+        | & | &        & | 
+        \end{pmatrix}.
+      \]
+      Consequently, multiplying any vector $\mathbf{u}$ by $I_n$ leaves $\mathbf{u}$ unchanged,
+      illustrating the ``identity'' property in matrix form.
+
+\item \textbf{Orthonormality:}
+      The standard basis vectors form an \emph{orthonormal} set because 
+      $\mathbf{e}_i \cdot \mathbf{e}_j = 0$ for $i \neq j$ and 
+      $\|\mathbf{e}_i\| = 1$ for all $i$. Consequently, the standard basis 
+      is a key example of an orthonormal basis for $\mathbb{R}^n$. 
+
+\item \textbf{Dimension:}
+      Because $\{\mathbf{e}_1,\dots,\mathbf{e}_n\}$ spans $\mathbb{R}^n$ (as above) 
+      and contains $n$ vectors, it constitutes a \emph{basis}, and also tells us that 
+      the dimension of $\mathbb{R}^n$ is $n$. 
+
+\item \textbf{Coordinate extraction:}
+      Note that the $i$-th coordinate of $\mathbf{u}$ can be found via the dot product:
+      \[
+        u_i \;=\; \mathbf{u} \cdot \mathbf{e}_i.
+      \]
+      In effect, each $\mathbf{e}_i$ ``samples'' exactly the $i$-th component of any vector 
+      in $\mathbb{R}^n$.
+\end{itemize}
+
+\noindent
+\textbf{Example (in $\mathbb{R}^2$):}
+\[
+\mathbf{e}_1 = 
+\begin{pmatrix} 1 \\ 0 \end{pmatrix}, 
+\quad
+\mathbf{e}_2 = 
+\begin{pmatrix} 0 \\ 1 \end{pmatrix}.
+\]
+Any vector \(\mathbf{u} = (u_1,u_2)^\top\) can be written as
+\[
+\mathbf{u} 
+= u_1\mathbf{e}_1 + u_2\mathbf{e}_2
+= \begin{pmatrix} u_1 \\ u_2 \end{pmatrix}.
+\]
+This construction extends naturally to $\mathbb{R}^n$, 
+where each vector is a sum of coordinate-scaled basis vectors.
+
+\subsubsection{Other Notable Bases}
+
+While the \emph{standard basis} is often the first (and simplest) example for $\mathbb{R}^n$, there are many other important bases in linear algebra. Below are some commonly encountered alternatives, each with its own purpose and advantages.
+
+\paragraph{Eigenbasis (Diagonalizing a Matrix)}
+
+\noindent
+If $A$ is an $n \times n$ matrix that has $n$ linearly independent eigenvectors, 
+then those eigenvectors form what is called an \emph{eigenbasis} of $\mathbb{R}^n$. 
+Concretely, suppose $A$ has $n$ distinct (or at least enough) eigenvectors 
+\(\mathbf{x}_1, \mathbf{x}_2, \dots, \mathbf{x}_n\) such that 
+\[
+  A\,\mathbf{x}_j = \lambda_j \mathbf{x}_j \quad \text{for } j=1,2,\dots,n,
+\]
+where each $\lambda_j$ is the corresponding eigenvalue. If you arrange these eigenvectors 
+as columns of a matrix $P$, i.e.\ 
+\[
+  P = \begin{pmatrix}
+  | & | &        & | \\
+  \mathbf{x}_1 & \mathbf{x}_2 & \cdots & \mathbf{x}_n \\
+  | & | &        & | 
+  \end{pmatrix},
+\]
+then $P^{-1} A P = D$ is a diagonal matrix whose diagonal entries are the eigenvalues 
+\(\lambda_1, \lambda_2, \dots, \lambda_n\). In this basis, the matrix $A$ acts particularly simply:
+\[
+  A\,(\alpha_1\,\mathbf{x}_1 + \cdots + \alpha_n \mathbf{x}_n)
+  = \alpha_1 \lambda_1 \mathbf{x}_1 + \cdots + \alpha_n \lambda_n \mathbf{x}_n.
+\]
+
+\noindent
+\textbf{Advantages:} 
+\begin{itemize}
+\item Diagonalizing a matrix greatly simplifies many operations, like taking powers $A^k$.
+\item Each component in the new coordinate system (the eigenbasis) evolves independently.
+\end{itemize}
+
+\noindent
+\textbf{Note:} 
+Not every matrix is diagonalizable. In such cases, one may use the Jordan normal form, 
+leading to a \emph{Jordan basis} instead (discussed briefly below).
+
+\paragraph{Jordan Basis (Jordan Normal Form)}
+
+\noindent
+When $A$ is not diagonalizable but still has a full set of $n$ eigenvalues 
+(counting multiplicities) over the complex field, one can put it into a \emph{Jordan normal form}. 
+This involves creating a \emph{Jordan basis} that consists of generalized eigenvectors, 
+arranged so that $A$ takes the Jordan block structure when viewed in this basis:
+\[
+  P^{-1} A P = 
+  \begin{pmatrix}
+  J_1 & 0   & \cdots & 0 \\
+  0   & J_2 & \cdots & 0 \\
+  \vdots & \vdots & \ddots & \vdots \\
+  0 & 0 & \cdots & J_k
+  \end{pmatrix},
+\]
+where each $J_i$ is a Jordan block corresponding to one eigenvalue $\lambda_i$. 
+Each Jordan block is almost diagonal, except for 1’s on the superdiagonal.
+
+\noindent
+\textbf{Advantages:}
+\begin{itemize}
+\item Allows one to understand the structure of a matrix that is not diagonalizable.
+\item Provides a standard form $J$ for similarity classes of matrices.
+\end{itemize}
+
+\paragraph{Orthonormal Bases in $\mathbb{R}^n$ (via Gram-Schmidt)}
+
+\noindent
+Any basis $\{\mathbf{u}_1,\dots,\mathbf{u}_n\}$ of $\mathbb{R}^n$ can be \emph{orthonormalized} 
+by the \emph{Gram-Schmidt} procedure, leading to a set of vectors 
+$\{\mathbf{q}_1,\dots,\mathbf{q}_n\}$ such that:
+\[
+  \mathbf{q}_i \cdot \mathbf{q}_j = 0 \quad (i \neq j), 
+  \quad\text{and}\quad
+  \|\mathbf{q}_i\| = 1 \quad \text{for all } i.
+\]
+This new basis diagonalizes many transformations (especially symmetric matrices) 
+in a more geometric manner and simplifies dot-product-related computations.
+
+\noindent
+\textbf{Advantages:}
+\begin{itemize}
+\item Dot products and projections are very straightforward in an orthonormal basis.
+\item Symmetric matrices are particularly easy to handle: if $A$ is real symmetric, 
+  one can always find an orthonormal eigenbasis (via the \emph{Spectral Theorem}).
+\end{itemize}
+
+\paragraph{Bases for Function Spaces (e.g., Fourier Basis)}
+
+\noindent
+Beyond $\mathbb{R}^n$, one can consider infinite-dimensional vector spaces, 
+like spaces of functions. For instance:
+\begin{itemize}
+\item \textbf{Fourier Basis:} 
+  In the space of square-integrable functions on $[0, 2\pi]$, 
+  $\bigl\{\sin(kx), \cos(kx)\bigr\}_{k=0}^\infty$ (plus constants) 
+  can form a basis (technically, an \emph{orthonormal set} in a Hilbert space).
+\item \textbf{Polynomial Spaces:} 
+  For the space of all polynomials up to degree $n$, the set 
+  $\{1, x, x^2, \dots, x^n\}$ is the standard basis. One could also use 
+  \emph{Legendre polynomials} or other orthogonal polynomials as a basis, 
+  which simplifies certain integrals.
+\end{itemize}
+
+\noindent
+\textbf{Advantages:}
+\begin{itemize}
+\item Often, changing to an appropriate basis (e.g.\ a Fourier basis) turns 
+  complicated differential equations or integrals into simpler forms.
+\item Orthonormal polynomials are extremely useful for approximations 
+  and in solution methods for boundary value problems.
+\end{itemize}
+
+\paragraph{Other Coordinate Systems in $\mathbb{R}^n$}
+
+\noindent
+Even in finite-dimensional spaces, one might pick a basis that aligns with certain 
+geometric or problem-specific features:
+\begin{itemize}
+\item \textbf{Rotated / shifted bases:} 
+  Instead of aligning with the $x_1, x_2, \dots, x_n$ axes, we might pick directions 
+  that match the geometry of a problem or the constraints of a system.
+\item \textbf{Basis for subspaces:} 
+  In many applications (e.g.\ solutions to a system of linear equations), 
+  one is more interested in a \emph{subspace} (like the row space, column space, or null space 
+  of a matrix). Finding a basis for such a subspace is often the key step.
+\end{itemize}
+
+\noindent
+In summary, \emph{any} set of $n$ linearly independent vectors in $\mathbb{R}^n$ 
+forms a valid basis, but choosing a \textbf{good} basis—eigenvectors, orthonormal vectors, 
+special polynomials, etc.—can greatly simplify the problem at hand.
+
+
+
+\subsection{Special Vectors}
+\subsubsection{Unit Vectors}
+A \emph{unit vector} is any vector of length $1$. Any nonzero vector $\mathbf{u}$ 
+can be \emph{normalized} to a unit vector by
+\[
+\widehat{\mathbf{u}} \;=\; \frac{\mathbf{u}}{\|\mathbf{u}\|}.
+\]
+\begin{itemize}
+\item $\|\widehat{\mathbf{u}}\| = 1$.
+\item The direction of $\widehat{\mathbf{u}}$ is the same as that of $\mathbf{u}$, but its length is $1$.
+\end{itemize}
+
+\noindent
+\textbf{Example (in $\mathbb{R}^2$):}
+\[
+\mathbf{u} 
+= \begin{pmatrix} 2 \\ 3 \end{pmatrix},
+\quad
+\|\mathbf{u}\| = \sqrt{13},
+\quad
+\widehat{\mathbf{u}}
+= \frac{1}{\sqrt{13}}
+  \begin{pmatrix} 2 \\ 3 \end{pmatrix}.
+\]
+Then $\|\widehat{\mathbf{u}}\| = 1$.
+
+
+
+
+\subsubsection{Eigenvalues and Eigenvectors}
+
+\noindent
+Let $A$ be an $n \times n$ matrix over $\mathbb{R}$. A (nonzero) vector $\mathbf{x} \in \mathbb{R}^n$ 
+is called an \emph{eigenvector} of $A$ if there exists a scalar $\lambda \in \mathbb{R}$, 
+called the \emph{eigenvalue}, such that
+\[
+  A\,\mathbf{x} = \lambda\,\mathbf{x}.
+\]
+Equivalently, $\mathbf{x}$ is an eigenvector if it satisfies
+\[
+  (A - \lambda I)\mathbf{x} = \mathbf{0},
+\]
+where $I$ is the $n \times n$ identity matrix. For $\mathbf{x}$ to be an eigenvector, 
+it must be nonzero, and $\lambda$ must make the above equation hold.
+
+\begin{itemize}
+\item \textbf{Eigenvalue equation:} $A\,\mathbf{x} = \lambda \mathbf{x}.$
+  \begin{itemize}
+    \item $\mathbf{x}$ is the eigenvector (required to be nonzero).
+    \item $\lambda$ is the corresponding eigenvalue.
+  \end{itemize}
+
+\item \textbf{Characteristic polynomial:} 
+  To find possible eigenvalues $\lambda$, one typically solves
+  \[
+    \det(A - \lambda I) = 0.
+  \]
+  This determinant (a polynomial in $\lambda$) is called the 
+  \emph{characteristic polynomial} of $A$.
+
+\item \textbf{Geometric interpretation:} 
+  If $\mathbf{x}$ is an eigenvector of $A$ with eigenvalue $\lambda$, 
+  then $A$ acts on $\mathbf{x}$ by simply \emph{stretching} or \emph{shrinking} it 
+  (and possibly reversing its direction if $\lambda < 0$), without changing its direction 
+  (except possibly reversing when $\lambda$ is negative).
+
+\item \textbf{Eigenspace:} 
+  For each eigenvalue $\lambda$, the set of all eigenvectors with that eigenvalue, 
+  together with the zero vector, forms a \emph{subspace} of $\mathbb{R}^n$, known as the 
+  \emph{eigenspace} corresponding to $\lambda$:
+  \[
+    E_\lambda = \{\mathbf{x} \in \mathbb{R}^n : A\,\mathbf{x} = \lambda \mathbf{x}\}.
+  \]
+\end{itemize}
+
+\noindent
+\textbf{Example (in $\mathbb{R}^2$):} 
+Consider the matrix 
+\[
+  A = \begin{pmatrix} 3 & 2 \\ 2 & 3 \end{pmatrix}.
+\]
+To find its eigenvalues, solve
+\[
+  \det\!\bigl(A - \lambda I\bigr) 
+  = \det\!\begin{pmatrix} 3-\lambda & 2 \\ 2 & 3-\lambda \end{pmatrix} 
+  = (3-\lambda)(3-\lambda) - 2\cdot 2 
+  = (3-\lambda)^2 - 4 
+  = 0.
+\]
+Hence, $(3-\lambda)^2 = 4$, so $3 - \lambda = \pm 2$. This yields two eigenvalues:
+\[
+  \lambda_1 = 1, \quad \lambda_2 = 5.
+\]
+To find an eigenvector for $\lambda_1 = 1$, solve $(A - I)\mathbf{x} = \mathbf{0}$:
+\[
+  \begin{pmatrix} 3-1 & 2 \\ 2 & 3-1 \end{pmatrix}
+  \begin{pmatrix} x \\ y \end{pmatrix}
+  = \begin{pmatrix} 2 & 2 \\ 2 & 2 \end{pmatrix}
+    \begin{pmatrix} x \\ y \end{pmatrix}
+  = \begin{pmatrix} 0 \\ 0 \end{pmatrix}.
+\]
+This implies $2x + 2y = 0$, or $x = -\,y$. We can choose (for instance) $x=1$, $y=-1$, 
+so 
+\[
+  \mathbf{x}_1 = \begin{pmatrix} 1 \\ -1 \end{pmatrix}
+\]
+is an eigenvector for $\lambda_1 = 1$. 
+
+Similarly, for $\lambda_2 = 5$, solve $(A - 5I)\mathbf{x} = \mathbf{0}$:
+\[
+  \begin{pmatrix} 3-5 & 2 \\ 2 & 3-5 \end{pmatrix}
+  = \begin{pmatrix} -2 & 2 \\ 2 & -2 \end{pmatrix}.
+\]
+This matrix enforces $-2x + 2y = 0$, or $x = y$. Choosing $x=1$, $y=1$ gives 
+\[
+  \mathbf{x}_2 = \begin{pmatrix} 1 \\ 1 \end{pmatrix}
+\]
+as an eigenvector for $\lambda_2 = 5$.
+
+Thus, the eigenvalues of $A$ are $1$ and $5$, with corresponding eigenvectors 
+$\begin{pmatrix}1\\-1\end{pmatrix}$ and $\begin{pmatrix}1\\1\end{pmatrix}$, respectively.
+
+

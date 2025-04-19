@@ -1,0 +1,405 @@
+\section{Matrix Decompositions}
+Matrix (or factorization) decompositions are fundamental tools in linear algebra. 
+They allow us to rewrite matrices in ways that reveal their key properties, 
+such as rank, eigenvalues, or condition numbers. Many of these decompositions 
+have direct applications in machine learning, numerical methods, and data analysis.
+
+\subsection{Preliminaries and Definitions}
+\begin{itemize}
+    \item \textbf{Eigenvalues and Eigenvectors:}
+          For a square matrix $A \in \mathbb{R}^{n \times n}$, 
+          a scalar $\lambda \in \mathbb{R}$ (or $\mathbb{C}$ in the complex case) is an \emph{eigenvalue} 
+          if there exists a nonzero vector $\mathbf{v}$ (the \emph{eigenvector}) such that
+          \[
+            A \mathbf{v} = \lambda \mathbf{v}.
+          \]
+          The set of all eigenvalues forms the \emph{spectrum} (or \emph{spectral set}) of $A$.
+
+    \item \textbf{Orthogonal (Orthonormal) Basis:}
+          A collection of vectors $\{\mathbf{q}_1, \ldots, \mathbf{q}_n\}$ in $\mathbb{R}^n$ 
+          is orthonormal if $\mathbf{q}_i^\top \mathbf{q}_j = \delta_{ij}$ (the Kronecker delta). 
+          A matrix $Q$ whose columns form an orthonormal set satisfies $Q^\top Q = I$.
+
+    \item \textbf{Diagonal Matrix:}
+          A matrix $\Lambda$ is \emph{diagonal} if $\Lambda_{ij} = 0$ whenever $i \neq j$. 
+          When diagonal entries are real and nonnegative, $\Lambda$ is sometimes used to list singular values 
+          or eigenvalues on the main diagonal.
+
+    \item \textbf{Triangular Matrices:}
+          A matrix $L$ is \emph{lower triangular} if all entries above the main diagonal are zero. 
+          Similarly, $R$ (or $U$) is \emph{upper triangular} if all entries below the main diagonal are zero.
+\end{itemize}
+
+\noindent
+In what follows, we assume basic familiarity with determinants, rank, and vector spaces. 
+Each decomposition has its own requirements (such as symmetry or invertibility). 
+
+
+\subsection{Eigen-Decomposition (Diagonalization)}
+\begin{theorem}[Eigen-Decomposition Theorem]
+Let $A \in \mathbb{R}^{n \times n}$ be a square matrix with $n$ \emph{linearly independent} eigenvectors. 
+Then $A$ can be decomposed as
+\[
+A = V \Lambda V^{-1},
+\]
+where 
+\begin{itemize}
+    \item $V$ is the $n \times n$ \emph{eigenvector matrix}, whose columns are the eigenvectors of $A$,
+    \item $\Lambda$ is the $n \times n$ \emph{diagonal matrix} of eigenvalues (each eigenvalue $\lambda_i$ 
+          appears on the diagonal).
+\end{itemize}
+\end{theorem}
+
+\begin{example}
+Suppose 
+\[
+A = \begin{pmatrix}
+4 & 1 \\
+0 & 3
+\end{pmatrix}.
+\]
+The eigenvalues are $\lambda_1 = 4, \lambda_2 = 3$. 
+Corresponding eigenvectors might be $\mathbf{v}_1 = (1,0)^\top$ and $\mathbf{v}_2=(1,1)^\top$. 
+Then 
+\[
+V = \begin{pmatrix} 1 & 1 \\ 0 & 1 \end{pmatrix},
+\quad
+\Lambda = \begin{pmatrix} 4 & 0 \\ 0 & 3 \end{pmatrix},
+\quad
+A = V \Lambda V^{-1}.
+\]
+\end{example}
+
+\textbf{Symmetric matrices ($A = A^\top$):} 
+If $A$ is \emph{real symmetric}, the eigen-decomposition simplifies to an \emph{orthogonal diagonalization}:
+\[
+A = Q \Lambda Q^\top,
+\]
+where $Q$ is an orthogonal matrix ($Q^\top Q = I$) and $\Lambda$ is diagonal with real eigenvalues. 
+This is particularly important in machine learning for covariance/correlation matrices (e.g.\ PCA).
+
+\subsection{Singular Value Decomposition (SVD)}
+\begin{theorem}[Singular Value Decomposition]
+Any $m \times n$ matrix $M$ (real or complex) can be decomposed as
+\[
+M = U \Sigma V^\top,
+\]
+where
+\begin{itemize}
+    \item $U \in \mathbb{R}^{m \times m}$ is orthogonal (i.e.\ $U^\top U = I_m$),
+    \item $V \in \mathbb{R}^{n \times n}$ is orthogonal (i.e.\ $V^\top V = I_n$),
+    \item $\Sigma \in \mathbb{R}^{m \times n}$ is \emph{diagonal} in the sense that only the entries 
+          along the main diagonal can be nonzero (these entries are the \emph{singular values}).
+\end{itemize}
+\end{theorem}
+
+\noindent
+\textbf{Usage in ML:}
+\begin{itemize}
+    \item \emph{Dimensionality Reduction (PCA):} By taking the top $r$ singular values (and corresponding vectors), 
+          we obtain a best rank-$r$ approximation to $M$.
+    \item \emph{Collaborative Filtering:} Large user--item matrices can be approximated by low-rank decompositions.
+    \item \emph{Model Compression:} Weight matrices in neural networks can sometimes be truncated 
+          to reduce the number of parameters.
+\end{itemize}
+
+\subsection{QR Decomposition}
+\begin{theorem}[QR Factorization]
+If $M \in \mathbb{R}^{m \times n}$ has full column rank (i.e.\ rank $n \le m$), 
+then $M$ can be written as 
+\[
+M = Q R,
+\]
+where
+\begin{itemize}
+    \item $Q \in \mathbb{R}^{m \times n}$ has orthonormal columns, and
+    \item $R \in \mathbb{R}^{n \times n}$ is upper triangular.
+\end{itemize}
+\end{theorem}
+\textbf{Usage in ML:}
+\begin{itemize}
+    \item \emph{Least Squares}: Solving $M \mathbf{x} \approx \mathbf{b}$ can be done stably via $Q$ and $R$.
+    \item \emph{Numerical Optimization}: Many iterative methods for linear or non-linear problems 
+          rely on QR for improved numerical stability.
+\end{itemize}
+
+\subsection{Cholesky Decomposition}
+\begin{theorem}[Cholesky Factorization]
+A \emph{symmetric positive definite} matrix $A \in \mathbb{R}^{n \times n}$ can be uniquely decomposed as
+\[
+A = L L^\top,
+\]
+where $L$ is lower-triangular with strictly positive diagonal entries.
+\end{theorem}
+\noindent
+\textbf{Usage in ML:}  
+\begin{itemize}
+    \item \emph{Covariance Matrices}: Cholesky is commonly used to invert or factor covariance matrices 
+          in Gaussian processes and Bayesian inference.
+    \item \emph{Sampling}: To sample from $\mathcal{N}(\mathbf{0}, \Sigma)$, we can set $\Sigma = L L^\top$ 
+          and let $\mathbf{z} = L \mathbf{x}$ where $\mathbf{x} \sim \mathcal{N}(\mathbf{0}, I)$.
+\end{itemize}
+
+\subsection{LU (or $LU$) Decomposition}
+\begin{theorem}[LU Decomposition]
+If $M \in \mathbb{R}^{n \times n}$ is a square matrix that can be reduced to an upper-triangular form 
+without row swapping, then there exists a decomposition
+\[
+M = LU,
+\]
+where $L$ is lower triangular (with 1's on the diagonal, in one common convention) 
+and $U$ is upper triangular.
+\end{theorem}
+\begin{itemize}
+    \item If row interchanges are needed, one introduces a permutation matrix $P$ to get $PM = LU$.
+    \item \emph{Usage:} 
+          LU factorization is another approach to solving systems $M \mathbf{x} = \mathbf{b}$ or computing determinants.
+\end{itemize}
+
+\subsection{Schur Decomposition}
+\begin{theorem}[Schur Decomposition]
+Any square matrix $A \in \mathbb{C}^{n \times n}$ can be written as 
+\[
+A = Q T Q^*,
+\]
+where $Q$ is a unitary matrix ($Q^* Q = I$) and $T$ is an upper triangular matrix. 
+The diagonal entries of $T$ are the eigenvalues of $A$.
+\end{theorem}
+\noindent
+This result is often used as an intermediate step toward the Jordan normal form or for proving other matrix decompositions.
+
+\subsection{Polar Decomposition}
+Any invertible matrix $A \in \mathbb{R}^{n \times n}$ (or $\mathbb{C}^{n \times n}$) can be written as 
+\[
+A = Q H,
+\]
+where $Q$ is orthogonal (or unitary) and $H$ is symmetric positive definite (Hermitian positive definite in the complex case).
+\begin{itemize}
+    \item \emph{Usage:} 
+          The polar decomposition is analogous to converting a complex number $z$ into $|z|e^{i\theta}$. 
+          In ML, it sometimes appears in manifold optimization and shape analysis.
+\end{itemize}
+
+\subsection{Additional Examples}
+\begin{example}[2x2 Cholesky]
+A simple $2\times 2$ positive definite matrix:
+\[
+A = \begin{pmatrix} 
+4 & 2 \\ 
+2 & 3 
+\end{pmatrix}.
+\]
+Its Cholesky decomposition is 
+\[
+L = \begin{pmatrix}
+2 & 0 \\
+1 & \sqrt{2}
+\end{pmatrix},
+\quad 
+L L^\top = A.
+\]
+\end{example}
+
+\begin{example}[SVD of a rank-1 matrix]
+Let 
+\[
+M = \begin{pmatrix}
+2 & 2 \\
+2 & 2 \\
+2 & 2
+\end{pmatrix}.
+\]
+This is clearly rank-1 (all rows are multiples of $(2, 2)$). 
+An SVD reveals a single nonzero singular value:
+\[
+\Sigma = \begin{pmatrix}
+\sqrt{12} & 0 \\
+0 & 0 \\
+0 & 0
+\end{pmatrix}, 
+\quad U, V \text{ suitably chosen orthogonal matrices.}
+\]
+\end{example}
+
+\begin{example}[LU Example]
+\[
+M = \begin{pmatrix}
+2 & 4 & 2\\
+4 & 8 & 6\\
+2 & 6 & 9
+\end{pmatrix}.
+\]
+One can find 
+\[
+L = \begin{pmatrix}
+1 & 0 & 0 \\
+2 & 1 & 0 \\
+1 & \frac{1}{2} & 1
+\end{pmatrix},
+\quad
+U = \begin{pmatrix}
+2 & 4 & 2 \\
+0 & 0 & 2 \\
+0 & 0 & 4
+\end{pmatrix}
+\]
+such that $M = LU$.
+\end{example}
+
+
+%======================================================================
+\subsection{Quick‑Reference Guide}
+\begin{quote}
+\textbf{Take‑away:} \emph{Know when a factorisation exists and what it costs.}
+\end{quote}
+
+\begin{center}
+\setlength{\tabcolsep}{6pt}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{@{}lccc@{}}
+\toprule
+Factorisation & Form & Key condition(s) & Typical flop count$^\dagger$ \\
+\midrule
+Eigen & $A = V\Lambda V^{-1}$            & $n$ indep.\ eigenvectors              & $O(n^3)$ \\
+Sym.\ eigen & $A = Q\Lambda Q^\top$      & $A=A^\top$ (SPD $\Rightarrow$ $\Lambda\!>\!0$) & $O(n^3)$ \\
+Schur & $A = Q T Q^\ast$                 & always (complex)                      & $O(n^3)$ \\
+SVD (thin) & $A = U_r\Sigma_r V_r^\top$  & always                                & $O(mn\min\{m,n\})$ \\
+QR (econ.) & $A = Q R$                   & rank $n\le m$                         & $O(2mn^2)$ \\
+CPQR       & $A\Pi = Q R$                & always                                & $O(2mn^2)$ \\
+Cholesky   & $A = L L^\top$              & SPD                                   & $O(n^3/3)$ \\
+LDL$^\top$ & $A = L D L^\top$            & $A = A^\top$ (indef.\ allowed)        & $O(n^3/3)$ \\
+LU (with $P$) & $P A = L U$              & nonsingular                           & $O(2n^3/3)$ \\
+Hessenberg & $Q^\top A Q = H$            & always                                & $O(10n^3/3)$ \\
+Polar      & $A = Q H$                   & invertible                            & $O(n^3)$ \\
+\bottomrule
+\end{tabular}
+
+\vspace{4pt}
+\small
+$^\dagger$Dense matrices, classical algorithms; Krylov or randomised variants can reduce cost.
+\end{center}
+
+%----------------------------------------------------------------------
+\subsection{LDL\texorpdfstring{$^\top$}{\^T} Decomposition (Symmetric Indefinite)}
+\begin{quote}
+\textbf{Take‑away:} \emph{Like Cholesky, but works even when $A$ is not positive‑definite.}
+\end{quote}
+
+\subsubsection*{Factorisation}
+For $A=A^\top\in\mathbb R^{n\times n}$,
+\[
+P A P^\top = L D L^\top,\qquad
+L\;\text{unit lower‑triangular},\;
+D\;\text{block‑diag.\ with $1\times 1$ or $2\times 2$ pivots},
+\]
+where $P$ is a permutation chosen for numerical stability.
+
+\paragraph{Why?}
+A variant of Gaussian elimination on $A$ preserves symmetry by eliminating both the $k$‑th row and column simultaneously, producing either a $1\times1$ or $2\times2$ pivot in~$D$.
+
+\subsubsection*{Worked Example}
+In sparse optimisation solvers (e.g.\ interior‑point methods), $K=\nabla^2\!f + \mathbf A^\top W \mathbf A$ is symmetric yet indefinite; an $LDL^\top$ factorisation with pivoting yields a stable Newton step without square‑roots.
+
+%----------------------------------------------------------------------
+\subsection{Economy‑Size and Pivoted QR}
+\begin{quote}
+\textbf{Take‑away:} \emph{“Thin” QR stores only what you need; column pivoting picks the best columns.}
+\end{quote}
+
+\begin{align}
+\text{(economy)}\;&\;A\in\mathbb R^{m\times n},\;m\!\ge n:
+\quad A = Q_{m\times n} R_{n\times n}; \\[4pt]
+\text{(pivoted)}\;&\;A\Pi = Q R,\quad
+\Pi\;\text{permutation s.t.\ }\;|R_{11}|\ge|R_{22}|\ge\dots.
+\end{align}
+
+\paragraph{Why?}
+Pivoting reveals a well‑conditioned basis of the column space (rank‑revealing QR), crucial in least‑squares with ill‑conditioned data.
+
+%----------------------------------------------------------------------
+\subsection{Truncated SVD and the Eckart–Young–Mirsky Theorem}
+\begin{quote}
+\textbf{Take‑away:} \emph{Keeping the top $r$ singular values minimises $\|A-\tilde A\|_2$ and $\|A-\tilde A\|_F$.}
+\end{quote}
+
+Let $A=U\Sigma V^\top$ and define
+\[
+\tilde A_r := U_{(:,1:r)}\Sigma_{1:r,1:r}V_{(:,1:r)}^\top.
+\]
+Then for any rank‑$r$ matrix $B$,
+\[
+\|A-\tilde A_r\|_2 = \min_{\operatorname{rank}(B)\le r}\|A-B\|_2
+\quad\text{and}\quad
+\|A-\tilde A_r\|_F = \min_{\operatorname{rank}(B)\le r}\|A-B\|_F.
+\]
+
+\paragraph{Why?}
+Both norms are unitarily invariant; removing the smallest singular values reduces energy optimally.
+
+\subsubsection*{Usage}
+Dimensionality reduction, latent‑semantic analysis, autoencoder weight initialisation, and compressing vision transformers where $r\!\ll\!\min\{m,n\}$.
+
+%----------------------------------------------------------------------
+\subsection{Hessenberg Decomposition}
+\begin{quote}
+\textbf{Take‑away:} \emph{One Householder sweep brings any matrix nearly triangular—ideal for QR iteration.}
+\end{quote}
+
+For $A\in\mathbb R^{n\times n}$, there exists orthogonal $Q$ such that
+\[
+Q^\top A Q = H,\qquad
+H_{ij}=0\;\text{for }i>j+1.
+\]
+
+\paragraph{Why?}
+Successively reflect the sub‑diagonal entries below the first sub‑diagonal; $H$ keeps the same eigenvalues as $A$ but QR steps on $H$ cost only $O(n^2)$ instead of $O(n^3)$.
+
+%----------------------------------------------------------------------
+\subsection{Jordan Canonical Form (Conceptual)}
+\begin{quote}
+\textbf{Take‑away:} \emph{Every square matrix is “almost” diagonal—just tolerate the ones on the super‑diagonal.}
+\end{quote}
+
+Over $\mathbb C$, $A=V J V^{-1}$ with $J=\operatorname{diag}(J_{k_1}(\lambda_1),\dots)$ and
+\[
+J_k(\lambda)=
+\begin{bmatrix}
+\lambda & 1      &        & 0\\
+        & \lambda& \ddots &  \\
+        &        & \ddots & 1\\
+0       &        &        & \lambda
+\end{bmatrix}\!.
+\]
+
+\paragraph{Why (but seldom computed)?}
+Gives the most refined structure of the nilpotent part; used in control theory proofs and the definition of the matrix exponential.  
+Numerically, the Schur form is preferred.
+
+%----------------------------------------------------------------------
+\subsection{Woodbury Identity (Low‑Rank Updates)}
+\begin{quote}
+\textbf{Take‑away:} \emph{Invert a giant matrix by inverting a small one.}
+\end{quote}
+
+If $A\in\mathbb R^{n\times n}$ is invertible and $U\in\mathbb R^{n\times k}$, $V\in\mathbb R^{k\times n}$,
+\[
+\bigl(A + U V\bigr)^{-1} = A^{-1} - A^{-1}U\bigl(I_k + V A^{-1} U\bigr)^{-1}V A^{-1}.
+\]
+
+\paragraph{Why?}
+Apply the block‑matrix inversion formula to
+$\bigl[\!\begin{smallmatrix}A & U \\[2pt]-V & I\end{smallmatrix}\!\bigr]$ and read off the $(1,1)$ block.
+
+\subsubsection*{Worked Example}
+In Gaussian‑process regression with $n\!\approx\!10^5$ data points, adding $k\!(\!\ll n)$ inducing points costs $O(nk^2)$ instead of $O(n^3)$ thanks to Woodbury.
+
+%----------------------------------------------------------------------
+\subsection{Polar Decomposition—Computation Tip}
+\begin{quote}
+\textbf{Take‑away:} \emph{Iterative refinement via SVD or Newton makes $Q$ orthogonal to machine precision.}
+\end{quote}
+
+A practical algorithm: iterate $A_{k+1}=\tfrac12\bigl(A_k + (A_k^\top)^{-1}\bigr)$ until convergence; then $Q=A_k$ and $H=Q^\top A$.
+
+%======================================================================
+
