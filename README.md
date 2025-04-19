@@ -1,5 +1,3 @@
-# KnowledgeTree
-
 LaTeX files of study material. Ar=tree, mnemosyne=gr.godess of memory.
 
 ## Shared LaTeX header:
